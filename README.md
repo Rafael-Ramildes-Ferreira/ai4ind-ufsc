@@ -9,9 +9,9 @@ To run the containers (simulator, GUI, NodeRed):
 docker compose up
 ```
 
-- Simulator: http://localhost:8080/storageRack
-- GUI: http://localhost:3001
-- NodeRed: http://127.0.0.1:1880
+- Simulator: [http://localhost:8080/storageRack](http://localhost:8080/storageRack)
+- GUI: [http://localhost:3001](http://localhost:3001)
+- NodeRed: [http://127.0.0.1:1880](http://127.0.0.1:1880)
 
 
 ## How to build the images
