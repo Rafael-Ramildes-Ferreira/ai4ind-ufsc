@@ -1,0 +1,27 @@
+networks:
+  ai4industry:
+    driver: bridge
+
+services:
+  simulator:
+    image: jomifred/ai4ind-simu
+    ports:
+      - "8080:8080"
+    networks:
+      - ai4industry
+    
+  gui:
+    image: jomifred/ai4ind-gui
+    ports:
+      - "3001:3001"
+    networks:
+      - ai4industry
+
+  nodered:
+    image: jomifred/ai4ind-nodered
+    ports:
+      - "1880:1880"
+    networks:
+      - ai4industry
+    volumes:
+      - ./node_red_data:/data   
