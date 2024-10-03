@@ -1,6 +1,9 @@
 networks:
   ai4industry:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
 
 services:
   simulator:
