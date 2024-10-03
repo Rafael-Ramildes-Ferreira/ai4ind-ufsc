@@ -8,7 +8,8 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - ai4industry
+      ai4industry:
+        ipv4_address: 172.20.0.3
     
   gui:
     image: jomifred/ai4ind-gui
@@ -16,6 +17,8 @@ services:
       - "3001:3001"
     networks:
       - ai4industry
+    depends_on:
+      - simulator
 
   nodered:
     image: jomifred/ai4ind-nodered
@@ -24,4 +27,6 @@ services:
     networks:
       - ai4industry
     volumes:
-      - ./node_red_data:/data   
+      - ./node_red_data:/data 
+    depends_on:
+      - simulator
