@@ -10,7 +10,7 @@ docker compose up
 ```
 
 - Simulator: [http://localhost:8080/storageRack](http://localhost:8080/storageRack)
-- GUI: [http://localhost:3001](http://localhost:3001) [not working]
+- GUI: [http://localhost:3001](http://localhost:3001) [not started because still not working]
 - NodeRed: [http://127.0.0.1:1880](http://127.0.0.1:1880)
 - Browser: [http://127.0.0.1:2000](http://127.0.0.1:2000)
 
