@@ -7,22 +7,22 @@ networks:
 
 services:
   simulator:
-    image: jomifred/ai4ind-simu
+    image: jomifred/ai4ind-simu:1.1
     ports:
       - "8080:8080"
+      - "3003:3003"
     networks:
       ai4industry:
         ipv4_address: 172.20.0.3
     
-  # GUI seems not working
-  # gui:
-  #   image: jomifred/ai4ind-gui
-  #   ports:
-  #     - "3001:3001"
-  #   networks:
-  #     - ai4industry
-  #   depends_on:
-  #     - simulator
+  gui:
+    image: jomifred/ai4ind-gui:1.1
+    ports:
+      - "3001:3001"
+    networks:
+      - ai4industry
+    depends_on:
+      - simulator
     
 
   nodered:

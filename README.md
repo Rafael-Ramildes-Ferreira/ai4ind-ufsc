@@ -10,9 +10,9 @@ docker compose up
 ```
 
 - Simulator: [http://localhost:8080/storageRack](http://localhost:8080/storageRack)
-- GUI: [http://localhost:3001](http://localhost:3001) [not started because still not working]
 - NodeRed: [http://127.0.0.1:1880](http://127.0.0.1:1880)
 - Browser: [http://127.0.0.1:2000](http://127.0.0.1:2000)
+    - GUI should be seen in the above browser: [http://gui:3001](http://gui:3001)
 
 
 ## How to build the images
@@ -23,14 +23,14 @@ cd ~/tmp
 git clone https://gitlab.emse.fr/ai4industry/ai4industry simul
 
 cd simul/use-case
-docker build --tag=jomifred/ai4ind-simu . 
-docker image push jomifred/ai4ind-simu
+docker build --tag=jomifred/ai4ind-simu:1.1 . 
+docker image push jomifred/ai4ind-simu:1.1
 
 cd ../gui
 
 curl -LO https://raw.githubusercontent.com/jomifred/ai4ind-ufsc/refs/heads/main/docker-files/gui/Dockerfile
-docker build --tag=jomifred/ai4ind-gui . 
-docker image push jomifred/ai4ind-gui
+docker build --tag=jomifred/ai4ind-gui:1.1 . 
+docker image push jomifred/ai4ind-gui:1.1
 ```
 
 Build the NodeRed with WebOfThings:
