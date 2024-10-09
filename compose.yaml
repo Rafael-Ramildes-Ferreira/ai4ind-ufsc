@@ -14,14 +14,16 @@ services:
       ai4industry:
         ipv4_address: 172.20.0.3
     
-  gui:
-    image: jomifred/ai4ind-gui
-    ports:
-      - "3001:3001"
-    networks:
-      - ai4industry
-    depends_on:
-      - simulator
+  # GUI seems not working
+  # gui:
+  #   image: jomifred/ai4ind-gui
+  #   ports:
+  #     - "3001:3001"
+  #   networks:
+  #     - ai4industry
+  #   depends_on:
+  #     - simulator
+    
 
   nodered:
     image: jomifred/ai4ind-nodered
@@ -33,3 +35,19 @@ services:
       - ./node_red_data:/data 
     depends_on:
       - simulator
+
+  firefox:
+    image: lscr.io/linuxserver/firefox:latest
+    networks:
+      - ai4industry
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./browser-config:/config
+    ports:
+      - 2000:3000
+      - 2001:3001
+    shm_size: "1gb"
+    restart: unless-stopped      
