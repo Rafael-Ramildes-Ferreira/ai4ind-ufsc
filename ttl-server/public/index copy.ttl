@@ -1,0 +1,40 @@
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix ssn: <http://www.w3.org/ns/ssn/> . # Semantic Sensor Network Ontology
+
+<> rdfs:label "RDF file with links to other relevant RDF files for the summer school"@en;
+  rdfs:comment "This provides information about the industrial scenario for a production line that fills in, seals, and packages yoghurts. This file provides links to descriptions of the machines and environments that may be usable to complete the scenario."@en;
+  rdfs:seeAlso
+    <itmfactory/itm>,
+   <ble-devices>,
+    <cup-provider>,
+    <dairy-product-provider>,
+    <http://yggdrasil.interactions.ics.unisg.ch/environments/61/workspaces/102>,
+    <https://docs.google.com/document/d/1o3e5T8SiQ6ZZHlIWVESTfnZQDnnFq_yZmbmMrYPo3rQ/edit> .
+
+<#productionLine> a ssn:System;
+  rdfs:label "summer school production line"@en;
+  rdfs:comment "This is the basic production line in Saint-Étienne for the summer school on AI for Industry 4.0, comprising a storage rack, a filling machine, a potting machine, and a packaging machine."@en;
+  onto:inputSystem <itmfactory/vl10#this>;
+  onto:outputSystem <itmfactory/xy10#this>;
+  ssn:hasSubSystem
+    <itmfactory/vl10#this>,
+    <itmfactory/dx10#this>,
+    <itmfactory/bosch-apas#this>,
+    <itmfactory/xy10#this>,
+    <cup-provider#this>,
+    <dairy-product-provider#this> .
+
+<#distributedProductionLine> a ssn:System;
+  rdfs:label "distributed summer school production line"@en;
+  rdfs:comment "This is the production line that involves things from Switzerland for the summer school on AI for Industry 4.0."@en;
+  onto:inputSystem <itmfactory/vl10#this>;
+  onto:outputSystem <itmfactory/xy10#this>;
+  ssn:hasSubSystem
+    <itmfactory/vl10#this>,
+    <itmfactory/dx10#this>,
+    <itmfactory/bosch-apas#this>,
+    <https://yggdrasil.interactions.ics.unisg.ch/environments/61/workspaces/102/artifacts/leubot1>,
+    <itmfactory/xy10#this>,
+    <cup-provider#this>,
+    <dairy-product-provider#this> .

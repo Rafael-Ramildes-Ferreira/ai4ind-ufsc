@@ -1,0 +1,90 @@
+@prefix dct: <http://purl.org/dc/terms/> . # Dublin Core terms
+@prefix emse: <../emse/> . # namespace for Mines St-Étienne
+@prefix ex: <http://www.example.com/> . # example namespace
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> . # hypermedia controls ontology
+@prefix htv: <http://www.w3.org/2011/http#> . # HTTP in RDF vocabulary
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> . # JSON schema
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix td: <https://www.w3.org/2019/wot/td#> . # Thing Descriptions
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> . # Web of Things security
+@prefix onto: <./ontology#> . # Ontology for the ai4industry hackathon
+@prefix : <> .
+
+:cup-provider rdfs:label "Description of a cup provider, to refill the storage rack in the IT’m factory"@en .
+
+
+<cup-provider#this> a td:Thing ;
+  td:title "cup-provider" ;
+  rdfs:label "cup and package provider to the IT’m factory";
+
+  td:hasSecurityConfiguration [
+    a wotsec:NoSecurityScheme
+  ];
+	
+  td:hasActionAffordance [ 
+    a td:ActionAffordance; # TODO typing
+    td:title "Order cups";
+    td:name "order";
+    td:description "order a certain amount of cups; eventually triggers 'delivered' event" ;
+    td:hasInputSchema [
+      a js:IntegerSchema
+    ];
+    td:hasForm [
+      a hctl:Form ;
+      hctl:hasTarget <../simu/cupProvider/actions/order> ;
+      hctl:hasOperationType td:invokeAction ;
+      hctl:forContentType "application/json"
+    ]
+  ];
+	
+  td:hasActionAffordance [ 
+    a td:ActionAffordance; # TODO typing
+    td:title "Order empty packages";
+    td:name "orderPackages";
+    td:description "order a certain amount of packages; eventually triggers 'deliveredPackages' event" ;
+    td:hasInputSchema [
+      a js:IntegerSchema
+    ];
+    td:hasForm [
+      a hctl:Form ;
+      hctl:hasTarget <../simu/cupProvider/actions/order> ;
+      hctl:hasOperationType td:invokeAction ;
+      hctl:forContentType "application/json"
+    ]
+  ];
+	
+  td:hasEventAffordance [ 
+    a td:EventAffordance; # TODO typing
+    td:title "Cups delivered";
+    td:name "delivered";
+    td:description "indicates that cups have been delivered to the factory (it is assumed that cups have also been added to the storage rack when this event fires)" ;
+    td:hasNotificationSchema [
+      a js:IntegerSchema
+    ];
+    td:hasForm [
+      a hctl:Form ;
+      hctl:hasTarget <../simu/cupProvider/events/delivered> ;
+      hctl:hasOperationType td:subscribeEvent ;
+      hctl:forContentType "application/json"
+    ]
+  ];
+	
+  td:hasEventAffordance [ 
+    a td:EventAffordance; # TODO typing
+    td:title "Empty packages delivered";
+    td:name "deliveredPackages";
+    td:description "indicates that empty packages have been delivered to the factory (it is assumed that packages have also been added to the packaging workshop buffer when this event fires)" ;
+    td:hasNotificationSchema [
+      a js:IntegerSchema
+    ];
+    td:hasForm [
+      a hctl:Form ;
+      hctl:hasTarget <../simu/cupProvider/events/deliveredPackages> ;
+      hctl:hasOperationType td:subscribeEvent ;
+      hctl:forContentType "application/json"
+    ]
+  ].

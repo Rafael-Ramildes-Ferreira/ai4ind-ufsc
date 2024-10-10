@@ -1,0 +1,12 @@
+mas itm_factory_mas {
+
+    agent bob {
+        beliefs: entryPoint("http://ttlserver:80") //"http://localhost:4000")
+        focus: itm_factory_workspace.h
+    }
+
+    workspace itm_factory_workspace  {
+        artifact h: org.hypermedea.HypermedeaArtifact()
+    }
+
+}

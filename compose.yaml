@@ -53,7 +53,7 @@ services:
     restart: unless-stopped      
 
   ttlserver:
-    image: httpd:2.4
+    build: ttl-server
     networks:
       - ai4industry
     volumes:

@@ -1,0 +1,56 @@
+@prefix dct: <http://purl.org/dc/terms/> . # Dublin Core terms
+@prefix ex: <http://www.example.com/> . # example namespace
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> . # hypermedia controls ontology
+@prefix htv: <http://www.w3.org/2011/http#> . # HTTP in RDF vocabulary
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> . # JSON schema
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix td: <https://www.w3.org/2019/wot/td#> . # Thing Descriptions
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> . # Web of Things security
+@prefix onto: <./ontology#> . # Ontology for the ai4industry hackathon
+@prefix : <> .
+
+:dairy-product-provider rdfs:label "Description of a dairy product provider that can refill the filling workshop in the IT’m factory"@en .
+
+<dairy-product-provider#this> a td:Thing ;
+  td:title "dairy-product-provider" ;
+  rdfs:label "dairy product provider, delivering yoghurt to the IT’m factory";
+
+  td:hasSecurityConfiguration [
+    a wotsec:NoSecurityScheme
+  ];
+	
+  td:hasActionAffordance [ 
+    a td:ActionAffordance; # TODO typing
+    td:title "Order yoghurt";
+    td:name "order";
+    td:description "order a certain volume of yoghurt; eventually triggers 'delivered' event" ;
+    td:hasInputSchema [
+      a js:IntegerSchema
+    ];
+    td:hasForm [
+      a hctl:Form ;
+      hctl:hasTarget <../simu/dairyProductProvider/actions/order> ;
+      hctl:hasOperationType td:invokeAction ;
+      hctl:forContentType "application/json"
+    ]
+  ];
+	
+  td:hasEventAffordance [ 
+    a td:EventAffordance; # TODO typing
+    td:title "Yoghurt delivered";
+    td:name "delivered";
+    td:description "indicates that yoghurt have been delivered to the factory (it is assumed that the filling workshop filler tank has been refilled when this event fires)" ;
+    td:hasNotificationSchema [
+      a js:IntegerSchema
+    ];
+    td:hasForm [
+      a hctl:Form ;
+      hctl:hasTarget <../simu/dairyProductProvider/events/delivered> ;
+      hctl:hasOperationType td:subscribeEvent ;
+      hctl:forContentType "application/json"
+    ]
+  ].

@@ -1,0 +1,172 @@
+@prefix cdt: <https://w3id.org/cdt/> . # namespace for UCUM datatype
+@prefix dbr: <http://dbpedia.org/resource/> . # DBpedia
+@prefix dct: <http://purl.org/dc/terms/> . # Dublin Core terms
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> . # hypermedia controls ontology
+@prefix htv: <http://www.w3.org/2011/http#> . # HTTP in RDF vocabulary
+@prefix itm: <> . # Namespace of the IT’m Factory
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> . # JSON schema
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix ssn-sytem: <http://www.w3.org/ns/ssn/system/> . # SSN system ontology.
+@prefix td: <https://www.w3.org/2019/wot/td#> . # Thing Descriptions
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> . # Web of Things security
+
+<bosch-apas> rdfs:label "Description of the Bosch APAS in Saint-Étienne."@en .
+
+<bosch-apas#this> a sosa:Platform, onto:Bosch-APAS, td:Thing;
+  td:title "bosch-apas";
+  rdfs:label "APAS";
+  rdfs:comment "Robotic arm from Bosch Gmbh, in the IT’m Factory"@en;
+  schema:manufacturer dbr:Robert_Bosch_GmbH;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012>;
+  
+  onto:hasThingDescription <../../simu/robotArm>;
+
+  onto:hasOriginCoordinates [
+  	onto:coordX 2.7;
+  	onto:coordY -0.5;
+  	onto:coordZ 0.8;
+  	onto:relativeTo <itm#this>;
+  	onto:xyAngle "0 deg"^^cdt:ucum;
+  	onto:angleToXYPlane "0 deg"^^cdt:ucum
+  ];
+
+  onto:maximumReach 2;
+
+  td:hasActionAffordance [ 
+		a td:ActionAffordance, onto:GraspAction;
+		dct:description "Closes the gripper to grasp the item that is right under the robot arm's hand. The grasping is performed only if the gripper is currently open.";
+		td:title "Grasp";
+		td:name "grasp";
+		td:hasForm [
+			a hctl:Form;
+			hctl:forContentType "application/json";
+			hctl:hasOperationType td:invokeAction;
+			hctl:hasTarget <../../simu/robotArm/actions/grasp>;
+			htv:methodName "POST"
+		];
+		td:hasOutputSchema [ a js:BooleanSchema ];
+		td:isIdempotent false;
+		td:isSafe false
+  ], [ 
+		a td:ActionAffordance, onto:MoveFromToAction;
+		dct:description "Moves the robot arm`s hand on the XYZ coordinate system.";
+		td:title "Move To";
+		td:name "moveTo";
+		td:hasForm [
+			a hctl:Form;
+			hctl:forContentType "application/json";
+			hctl:hasOperationType td:invokeAction;
+			hctl:hasTarget <../../simu/robotArm/actions/moveTo>;
+			htv:methodName "POST"
+		];
+		td:hasInputSchema [
+			a js:ObjectSchema;
+			js:properties [
+				a js:NumberSchema;
+				js:propertyName "x"
+			], [
+				a js:NumberSchema;
+				js:propertyName "y"
+			], [
+				a js:NumberSchema;
+				js:propertyName "z"
+			];
+			js:required "x", "y", "z"
+		];
+		td:hasOutputSchema [ a js:BooleanSchema ];
+		td:isIdempotent false;
+		td:isSafe false
+  ], [
+    a td:ActionAffordance, onto:StopInEmergencyAction;
+		dct:description "Turns off all active components of the machine: It restarts the stack light sensor, it opens the gripper, and it cancels on-going movement tasks.";
+		td:title "Press Emergency Stop";
+		td:name "pressEmergencyStop";
+    td:hasForm [
+      a hctl:Form;
+      hctl:forContentType "application/json";
+      hctl:hasOperationType td:invokeAction ;
+      hctl:hasTarget <../../simu/robotArm/actions/pressEmergencyStop>;
+      htv:methodName "POST"
+    ] ;
+    td:isIdempotent false;
+    td:isSafe false
+  ], [ 
+		a td:ActionAffordance, onto:ReleaseAction;
+		dct:description "Opens the gripper to release an item.";
+		td:title "Release";
+		td:name "release";
+		td:hasForm [
+			a hctl:Form;
+			hctl:forContentType "application/json";
+      hctl:hasOperationType td:invokeAction;
+			hctl:hasTarget <../../simu/robotArm/actions/release>;
+			htv:methodName "POST"
+		];
+		td:hasOutputSchema [ a js:BooleanSchema ];
+		td:isIdempotent false;
+		td:isSafe false
+  ];
+
+  td:hasForm [
+  	a hctl:Form;
+  	hctl:forContentType "application/json" ;
+    hctl:hasOperationType td:readAllProperties, td:readMultipleProperties ;
+    hctl:hasTarget <../../simu/robotArm/all/properties>
+  ];
+
+  td:hasPropertyAffordance [
+    a td:PropertyAffordance, js:BooleanSchema, onto:ActivityStatus;
+		dct:description "Reads the grasping status of the robot. The status is true if gripper is closed. The status is false if the gripper is open.";
+		td:title "Grasping";
+		td:name "grasping";
+		js:readOnly true;
+		js:writeOnly false;
+		td:hasForm [
+			a hctl:Form;
+			hctl:forContentType "application/json";
+			hctl:hasOperationType td:readProperty;
+			hctl:hasTarget <../../simu/robotArm/properties/grasping>;
+			htv:methodName "GET"
+		];
+		td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:BooleanSchema, onto:ActivityStatus;
+		dct:description "Reads the movement status of the robot. The status is true if the robot is in movement.";
+		td:title "In Movement";
+		td:name "inMovement";
+		js:readOnly true;
+		js:writeOnly false;
+		td:hasForm [
+			a hctl:Form;
+			hctl:forContentType "application/json";
+			hctl:hasOperationType td:readProperty;
+			hctl:hasTarget <../../simu/robotArm/properties/inMovement>;
+			htv:methodName "GET"
+		];
+		td:isObservable false
+  ], [
+    a td:PropertyAffordance;
+    dct:description "Status of the stack lights, indicating the machine's status.";
+    td:title "Stack Light Status";
+    td:name "stackLightStatus";
+    js:enum "green", "yellow", "red";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+			hctl:forContentType "application/json";
+      hctl:hasOperationType td:readProperty;
+      hctl:hasTarget <../../simu/robotArm/properties/stackLightStatus>;
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ];
+
+  td:hasSecurityConfiguration [
+    a wotsec:BasicSecurityScheme
+  ] .

@@ -1,0 +1,17 @@
+networks:
+  ai4industry:
+    name: ai4ind-ufsc_ai4industry
+    external: true
+
+services:
+  bob:
+    image: jomifred/jacamo:1.2
+    command: kg.jcm
+    ports:
+      - 3272:3272
+    networks:
+      - ai4industry
+    volumes:
+      - ../wot/gradle-cache:/root/.gradle
+      - .:/app
+    working_dir: /app
