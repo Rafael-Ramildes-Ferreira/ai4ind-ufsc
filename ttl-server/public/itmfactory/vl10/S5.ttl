@@ -1,0 +1,39 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eco: <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4#> .
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv: <http://www.w3.org/2011/http#> .
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix pto: <http://www.productontology.org/id/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix td: <https://www.w3.org/2019/wot/td#> .
+@prefix ua: <http://opcfoundation.org/UA/> .
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/vl10/S5> a eco:C_AKH016003-tax,
+        pto:Switch ;
+    rdfs:label "Plastic safety interlock switch"@en ;
+    dct:title "S5" ;
+    schema:manufacturer [ a schema:Organization ;
+            schema:name "Telemecanique" ] ;
+    schema:subjectOf <https://tesensors.com/fr/fr/document/156013501A55> ;
+    rdfs:comment "It is used to lock the left side door of storage rack storage rack on VL10 machine of the IT'm factory."@en ;
+    sosa:observes <https://ci.mines-stetienne.fr/kg/itmfactory/vl10/S5#this> ;
+    td:hasPropertyAffordance [ a js:BooleanSchema,
+                td:PropertyAffordance ;
+            dct:description "Indicates the storage rack door is in close or open on the VL10 Machine of the IT'm factory." ;
+            dct:title "Portes_Ouvertes" ;
+            js:readOnly false ;
+            js:writeOnly false ;
+            td:hasForm [ a hctl:Form ;
+                    ua:nodeId "ns=2;s=ITm Factory.VL10.Portes Ouvertes" ;
+                    htv:methodName "GET" ;
+                    hctl:forContentType "application/json" ;
+                    hctl:hasOperationType td:readProperty ;
+                    hctl:hasTarget <opc.tcp://10.1.9.1:49320> ] ;
+            td:isObservable true ;
+            td:name "Portes_Ouvertes" ] ;
+    td:hasSecurityConfiguration [ a wotsec:NoSecurityScheme ] .
+

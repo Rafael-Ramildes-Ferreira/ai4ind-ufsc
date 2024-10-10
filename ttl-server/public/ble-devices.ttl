@@ -1,0 +1,10 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <#> .
+ 
+<#lumimuse8> rdfs:label "Lumimuse8 LED with Bluetooth Wireless Technology" ; rdfs:seeAlso <https://www.manfrotto.com/global/lumimuse8-led-with-bluetooth-wireless-technology-mlumimuse8a-bt/> ;  rdfs:comment "Light from Manfrotto with changable colour temperature" .
+ 
+<#ruuvitag>  rdfs:label "RuuviTag open-source wireless sensor node"; rdfs:seeAlso <https://ruuvi.com/ruuvitag-specs/> ; rdfs:comment "From Finland, provides sensor readings via BLE advertisements" .
+ 
+<#scale> rdfs:label "Xiaomi Mi Scale" , "Xiaomi 21907 Mi Body Composition Scale 2"@en ; rdfs:seeAlso <https://www.mi.com/us/mi-body-composition-scale> ; rdfs:comment "Scale with Bluetooth interface" .

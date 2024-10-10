@@ -1,0 +1,10 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix onto: <../../ontology#> . # The AI for industry summer school ontology
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # SOSA ontology.
+
+<downstream-presence-ir-sensor> rdfs:label "Description of the presence sensor at the end of the conveyor belt of VL10."@en .
+
+<downstream-presence-ir-sensor#this> a onto:PresenceSensor;
+  rdfs:label "downstream presence sensor";
+  rdfs:comment "Infra-red presence sensor at the end of the conveyor belt on the VL10 of the IT’m factory."@en;
+  sosa:observes <downstream-presence#this> .

@@ -1,0 +1,15 @@
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix silo: <silo/> . # namespace for elements of the dosaxe silo
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix ssn: <http://www.w3.org/ns/ssn/> . # Semantic Sensor Network Ontology
+
+<> rdfs:label "Description of the conveyor in the VL10 storage rack in Mines Saint-Étienne."@en .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/vl10/conveyor#this> a sosa:System;
+  rdfs:label "VL10 conveyor"@en;
+  rdfs:comment "The conveyor of the VL10 and its operating subsystem, including sensors, motor, belt, etc."@en;
+  sosa:hosts
+  	<downstream-presence-ir-sensor#this>,
+    <motor#this>;
+  ssn:hasProperty <speed#this> .

@@ -1,0 +1,10 @@
+@prefix itm: <> . # Namespace of the IT’m Factory
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+
+<alarm-on> rdfs:label "Description of an alarm activation property."@en .
+
+<alarm-on#this> a sosa:ActuatableProperty; # make a taxonomy of properties?
+  rdfs:label "Alarm emiting sound"@en;
+  rdfs:comment "This property represents the state of the alarm of the DX10 at école des mines."@en .
+# to be completed... .

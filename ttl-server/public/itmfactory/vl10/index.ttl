@@ -1,0 +1,210 @@
+@prefix bot: <https://w3id.org/bot#> . # building topology
+@prefix cdt: <https://w3id.org/cdt/> . # namespace for UCUM datatype
+@prefix dct: <http://purl.org/dc/terms/> . # Dublin Core terms
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> . # hypermedia controls ontology
+@prefix htv: <http://www.w3.org/2011/http#> . # HTTP in RDF vocabulary
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> . # JSON schema
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix s4syst: <https://saref.etsi.org/saref4syst/> .
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix siren: <http://rdf.insee.fr/siren/> . # registered companies
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix ssn: <http://www.w3.org/ns/ssn/> . # Semantic Sensor Network Ontology
+@prefix td: <https://www.w3.org/2019/wot/td#> . # Thing Descriptions
+@prefix vl10: <vl10/> . # namespace for elements of the storage rack
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> . # Web of Things security
+
+<> rdfs:label "Description of the VL10 at Mines Saint-Étienne"@en .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/vl10#this> a sosa:Platform, td:Thing, pto:Automated_storage_and_retrieval_system;
+  dct:description "VL10 storage rack with a Cartesian robot and a conveyor belt. It can be used as a conveying workshop: The Cartesian robot can be used to move on the XZ-plane, pick up items from the storage rack and place them on the one end of the conveyor belt.";
+  td:title "vl10";
+  rdfs:label "Magasin vertical dynamique"@fr, "vertical dynamic storage rack"@en;
+  rdfs:comment "Le système Magasin Vertical Dynamique est un système automatisé de préparation de commande client."@fr;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012>;
+  schema:manufacturer siren:353183601;
+  
+  onto:hasOriginCoordinates [
+    onto:coordX 0;
+    onto:coordY 0;
+    onto:coordZ 1;
+    onto:relativeTo <../itm#this>;
+    onto:xyAngle "0 deg"^^cdt:ucum;
+    onto:angleToXYPlane "0 deg"^^cdt:ucum
+  ];
+
+  onto:locationOfOutputProduct [
+    onto:coordX 1; onto:coordY 0; onto:coordZ 1
+  ];
+
+  onto:outputArea [
+    a s4syst:ConnectionPoint, onto:ProductManagementArea;
+    onto:relativeCoordinates [
+      onto:coordX 1.2; onto:coordY 0; onto:coordZ 0;
+      onto:relativeTo <#this>;
+      onto:xyAngle "0 deg"^^cdt:ucum;
+      onto:angleToXYPlane "0 deg"^^cdt:ucum
+    ];
+    s4syst:connectedThrough <https://ci.mines-stetienne.fr/kg/itmfactory/vl10-dx10#this>;
+    ssn:hasProperty <conveyor/downstream-presence#this>
+  ];
+
+  ssn:hasProperty <conveyor/downstream-presence#this>;
+
+  onto:hasThingDescription <../../../simu/storageRack>;
+
+  sosa:hosts
+    <conveyor#this>,
+    <emergency-stop-button#this>,
+    <signal-light-column#this>,
+    <conveyor/downstream-presence-ir-sensor#this>,
+    <conveyor/motor#this>;
+  
+  td:hasActionAffordance [ 
+    a td:ActionAffordance, onto:MoveFromToAction;
+    dct:description "Picks an item from the storage rack and places it on the conveyor belt. E.g. to pick up the first item in the storage rack, the action must be invoked with input [0,0]. To monitor the state of the action, one can read the clamp status and the XZ-positions of the Cartesian robot. E.g. once the clamp is open again, the action has been completed.";
+    td:title "Pick Item";
+    td:name "pickItem";
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/storageRack/actions/pickItem>;
+      hctl:hasOperationType td:invokeAction;
+      hctl:forContentType "application/json";
+      htv:methodName "POST"
+    ];
+    td:hasInputSchema [
+      a js:ArraySchema;
+      dct:description "Position of the item on the XZ-plane.";
+      js:minItems 2;
+      js:maxItems 2;
+      js:items [
+        a js:NumberSchema;
+      ]
+    ];
+    td:isIdempotent false;
+    td:isSafe false
+  ], [ 
+    a td:ActionAffordance, onto:StopInEmergencyAction, onto:Reset;
+    dct:description "Turns off all active components of the machine: It sets the conveyor speed to 0, it restarts the stack light sensor, and a human operator is called to remove any items that have been placed on the conveyor belt.";
+    td:title "Press Emergency Stop";
+    td:name "pressEmergencyStop";
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/storageRack/actions/pressEmergencyStop>;
+      hctl:hasOperationType td:invokeAction;
+      hctl:forContentType "application/json";
+      htv:methodName "POST"
+    ];
+    td:isIdempotent false;
+    td:isSafe false
+  ];
+
+  td:hasForm [
+    hctl:forContentType "application/json";
+    hctl:hasOperationType td:readAllProperties, td:readMultipleProperties, td:writeAllProperties, td:writeMultipleProperties;
+    hctl:hasTarget <../../../simu/storageRack/all/properties>
+  ];
+
+  td:hasPropertyAffordance [
+    a td:PropertyAffordance, js:ArraySchema, onto:MaximumCount;
+    dct:description "Reads the capacity of the 2D storage rack E.g. a [5,5] capacity indicates that the rack has 5 rows (X axis) and 5 columns (Z axis), and it can store at most 25 items.";
+    td:title "Capacity";
+    td:name "capacity";
+    js:minItems 2;
+    js:maxItems 2;
+    js:items [
+      a js:NumberSchema;
+    ];
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/storageRack/properties/capacity>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:BooleanSchema; 
+    dct:description "Reads the status of the clamp of the Cartesian robot. The status is true if the clamp is closed, and false if the clamp is open.";
+    td:title "Clamp Status";
+    td:name "clampStatus";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/storageRack/properties/clampStatus>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:NumberSchema, onto:ConveyorSpeed; 
+    dct:description "Reads and writes the speed (X axis) of the conveyor belt (in meters/second).";
+    td:title "Conveyor Speed";
+    td:name "conveyorSpeed";
+    js:readOnly false;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/storageRack/properties/conveyorSpeed>;
+      hctl:hasOperationType td:readProperty, td:writeProperty;
+      hctl:forContentType "application/json"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:NumberSchema, onto:XCoordinate; 
+    dct:description "Reads the position of the Cartesian motor on the X axis (in meters).";
+    td:title "Position X";
+    td:name "positionX";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/storageRack/properties/positionX>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:NumberSchema, onto:ZCoordinate; 
+    dct:description "Reads the position of the Cartesian motor on the Z axis (in meters).";
+    td:title "Position Z";
+    td:name "positionZ";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/storageRack/properties/positionZ>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:StringSchema, onto:StackLightStatus; 
+    dct:description "Reads the status of the storage rack.";
+    td:title "Stack Light Status";
+    td:name "stackLightStatus";
+    js:enum "green", "yellow", "red";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/storageRack/properties/stackLightStatus>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ];
+
+  td:hasSecurityConfiguration [ 
+    a wotsec:BasicSecurityScheme 
+  ] .

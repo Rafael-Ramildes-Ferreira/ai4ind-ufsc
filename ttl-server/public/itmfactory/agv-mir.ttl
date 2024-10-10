@@ -1,0 +1,14 @@
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix siren: <http://rdf.insee.fr/siren/> . # registered companies
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<agv-mir> rdfs:label "Description of AGV MiR mobile robot"@en .
+#   
+<agv-mir#this> a sosa:Platform, pto:Mobile_robot;
+  rdfs:label "AGV MIR";
+  rdfs:comment "Mobile, autonomous robot, with an HTTP interface. Can carry things up to 100 kg."@en;
+  rdfs:seeAlso <https://www.fit-robotique.com/robot-mir-100/>;
+  schema:manufacturer siren:321352221 .

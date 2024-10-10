@@ -1,0 +1,10 @@
+@prefix dct: <http://purl.org/dc/terms/> . # Dublin Core terms
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix s4syst: <https://saref.etsi.org/saref4syst/> . # SAREF for Systems ontology
+
+<vl10-dx10> rdfs:label "Description of the connection between the VL10 and the DX10 in the production line of the IT'm Factory."@en .
+
+<vl10-dx10#this> a s4syst:Connection;
+  dct:description "The connection between the VL10 at the end of its conveyor belt and the DX10 at the beginning of its conveyor belt."@en;
+  rdfs:label "vl10-dx10 connection"@en;
+  s4syst:connectsSystem <dx10#this>, <vl10#this> .

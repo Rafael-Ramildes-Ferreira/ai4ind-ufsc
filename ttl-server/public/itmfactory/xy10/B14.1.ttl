@@ -1,0 +1,39 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eco: <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4#> .
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv: <http://www.w3.org/2011/http#> .
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix pto: <http://www.productontology.org/id/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix td: <https://www.w3.org/2019/wot/td#> .
+@prefix ua: <http://opcfoundation.org/UA/> .
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/xy10/B14.1> a eco:C_AKL924002,
+        pto:Vacuum_pump ;
+    rdfs:label "Vacuum Unit with Ejector System and Vacuum Pump System"@en ;
+    dct:title "B14.1" ;
+    schema:manufacturer [ a schema:Organization ;
+            schema:name "SMC" ] ;
+    schema:subjectOf <https://www.smc.eu/en-eu/products/zk2-a~164877~nav?productId=164879> ;
+    rdfs:comment "It indicates vaccum is providing to graps the items on XY10 machine of the IT'm factory."@en ;
+    sosa:observes <https://ci.mines-stetienne.fr/kg/itmfactory/xy10/B14.1#this> ;
+    td:hasPropertyAffordance [ a js:BooleanSchema,
+                td:PropertyAffordance ;
+            dct:description "Indicates vaccum is providing to graps the items on XY10 machine of the IT'm factory." ;
+            dct:title "Vacu_Prise_Prod1_B14_1" ;
+            js:readOnly false ;
+            js:writeOnly false ;
+            td:hasForm [ a hctl:Form ;
+                    ua:nodeId "ns=2;s=ITm Factory.XY10.Vacu Prise Prod1 B14 1" ;
+                    htv:methodName "GET" ;
+                    hctl:forContentType "application/json" ;
+                    hctl:hasOperationType td:readProperty ;
+                    hctl:hasTarget <opc.tcp://10.1.9.1:49320> ] ;
+            td:isObservable true ;
+            td:name "Vacu_Prise_Prod1_B14_1" ] ;
+    td:hasSecurityConfiguration [ a wotsec:NoSecurityScheme ] .
+

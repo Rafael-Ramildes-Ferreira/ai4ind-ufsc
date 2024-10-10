@@ -1,0 +1,30 @@
+@prefix dct: <http://purl.org/dc/terms/> . # Dublin Core terms
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> . # hypermedia controls ontology
+@prefix htv: <http://www.w3.org/2011/http#> . # HTTP in RDF vocabulary
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix s4syst: <https://saref.etsi.org/saref4syst/> . # SAREF for systems
+@prefix td: <https://www.w3.org/2019/wot/td#> . # Thing Descriptions
+
+
+<emergency-stop-button> rdfs:label "Description of the emergency stop button on the cartesian robot XY10 in Mines Saint-Étienne."@en .
+
+<emergency-stop-button#this> a td:Thing;
+  rdfs:label "stop XY10";
+  rdfs:comment "The emergency stop button on the cartesian robot XY10, that can stop all ongoing actions by the machine."@en;
+  s4syst:subSystemOf <#this>;
+  td:hasActionAffordance [ 
+    a td:ActionAffordance, onto:StopInEmergencyAction;
+    dct:description "turns off all active components of the machine";
+    dct:title "Press Emergency Stop";
+    td:name "pressEmergencyStop";
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/packagingWorkshop/actions/pressEmergencyStop>;
+      hctl:hasOperationType td:invokeAction;
+      hctl:forContentType "application/json";
+      htv:methodName "POST"
+    ];
+    td:isIdempotent false;
+    td:isSafe false 
+  ] .

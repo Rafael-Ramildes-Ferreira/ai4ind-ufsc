@@ -1,0 +1,40 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eco: <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4#> .
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv: <http://www.w3.org/2011/http#> .
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix pto: <http://www.productontology.org/id/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix td: <https://www.w3.org/2019/wot/td#> .
+@prefix ua: <http://opcfoundation.org/UA/> .
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/xy10/B4> a eco:C_AKP251002,
+        pto:Photoelectric_sensor,
+        pto:Sensor ;
+    rdfs:label "Polarized retro-reflective photoelectric sensor"@en ;
+    dct:title "B4" ;
+    schema:manufacturer [ a schema:Organization ;
+            schema:name "Leuze" ] ;
+    schema:subjectOf <https://www.leuze.com/en/usa/products_us/switching_sensors_us/optical_sensors_us/photoelectric_sensors_light_scanners_cubic_us/5_series_us/retro_reflective_photoelectric_sensors_us_2/prk5_us/selector.php?supplier_aid=50128200&grp_id=A1-1-1-1-3-2-1&lang=eng> ;
+    rdfs:comment "It indicates tray is present at picking position on XY10 machine of the IT'm factory."@en ;
+    sosa:observes <https://ci.mines-stetienne.fr/kg/itmfactory/xy10/B4#this> ;
+    td:hasPropertyAffordance [ a js:BooleanSchema,
+                td:PropertyAffordance ;
+            dct:description "Indicates tray is present at picking position on XY10 machine of the IT'm factory." ;
+            dct:title "Presence_Barq_B4" ;
+            js:readOnly false ;
+            js:writeOnly false ;
+            td:hasForm [ a hctl:Form ;
+                    ua:nodeId "ns=2;s=ITm Factory.XY10.Presence Barq B4" ;
+                    htv:methodName "GET" ;
+                    hctl:forContentType "application/json" ;
+                    hctl:hasOperationType td:readProperty ;
+                    hctl:hasTarget <opc.tcp://10.1.9.1:49320> ] ;
+            td:isObservable true ;
+            td:name "Presence_Barq_B4" ] ;
+    td:hasSecurityConfiguration [ a wotsec:NoSecurityScheme ] .
+

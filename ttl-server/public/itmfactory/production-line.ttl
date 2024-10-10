@@ -1,0 +1,14 @@
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix ssn: <http://www.w3.org/ns/ssn/> . # Semantic Sensor Network Ontology
+#
+<production-line> rdfs:label "Description of yogurt production line in the IT’m factory"@en .
+#   
+<production-line#this> a sosa:System, onto:YogurtProductionLine;
+  rdfs:label "production line";
+  rdfs:comment "A production line that fills, closes, and packages yogurts."@en;
+  onto:inputMachine <vl10#this>;
+  ssn:hasSubSystem <dx10#this>;
+  ssn:hasSubSystem <bosch-apas#this>;
+  onto:outputMachine <xy10#this> .

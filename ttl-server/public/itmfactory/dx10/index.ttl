@@ -1,0 +1,230 @@
+@prefix cdt: <https://w3id.org/cdt/> . # namespace for UCUM datatype
+@prefix dct: <http://purl.org/dc/terms/> . # Dublin Core terms
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> . # hypermedia controls ontology
+@prefix htv: <http://www.w3.org/2011/http#> . # HTTP in RDF vocabulary
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> . # JSON schema
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix s4syst: <https://saref.etsi.org/saref4syst/> .
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix siren: <http://rdf.insee.fr/siren/> . # registered companies
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix ssn: <http://www.w3.org/ns/ssn/> . # Semantic Sensor Network Ontology
+@prefix td: <https://www.w3.org/2019/wot/td#> . # Thing Descriptions
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> . # Web of Things security
+
+<> rdfs:label "Description of the Dosaxe DX10 in Mines Saint-Étienne."@en .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/dx10#this> a sosa:Platform, td:Thing, onto:DosaxeDX10, <http://www.productontology.org/id/Filler_(packaging)>;
+  dct:description "DX10 filling workshop with a Cartesian robot, a filler (with a magnetic valve) attached to the Cartesian robot and a conveyor belt. The machine is configured such that: 1) once the optical sensor at the start of the belt detects an item, the magnetic valve of the filler opens and the Cartesian robot starts to move along the X axis (at the speed of the belt) above the item. 2) Once a preconfigured amount of product has been poured by the filler, the valve closes and the robot returns to its initial X coordinate at maximum speed while the item keeps moving towards the end of the conveyor.";
+  td:title "fillingWorkshop";
+  rdfs:label "Dosaxe DX10";
+  rdfs:comment
+    "Le système Dosaxe est un système automatisé de remplissage dit « à la volée » de pots/flacons ou boîtes/palettes de différents formats dans le cadre d’une production continue. Il est issu d’une véritable machine industrielle utilisée dans l’industrie agroalimentaire, pharmaceutique ou cosmétique (Pots/flacons) ou l’industrie d’assemblage (Boîtes/palettes). Ce système automatisé peut être utilisé en toute autonomie avec par exemple des pots/flacons ou des boîtes/palettes ou au sein de la ligne de production flexible ErmaSmart."@fr,
+    "Brushless axis dosing machine"@en; 
+  schema:manufacturer siren:353183601;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012>;
+  
+  # perhaps make these two locations as "seas:Connection"
+
+  onto:hasOriginCoordinates [
+    onto:coordX 1.2; # TO BE UPDATED!
+    onto:coordY 0; # TO BE UPDATED!
+    onto:coordZ 1; # TO BE UPDATED!
+    onto:relativeTo <../itm#this>;
+    onto:xyAngle "0 deg"^^cdt:ucum;
+    onto:angleToXYPlane "0 deg"^^cdt:ucum
+  ];
+
+  onto:inputArea [
+    a s4syst:ConnectionPoint, onto:ProductManagementArea;
+    onto:relativeCoordinates [
+      onto:coordX 0; onto:coordY 0; onto:coordZ 0; # TO BE UPDATED!
+      onto:relativeTo <#this>;
+      onto:xyAngle "0 deg"^^cdt:ucum;
+      onto:angleToXYPlane "0 deg"^^cdt:ucum
+    ];
+    s4syst:connectedThrough <https://ci.mines-stetienne.fr/kg/itmfactory/vl10-dx10#this>;
+    ssn:hasProperty <conveyor/upstream-presence#this>
+  ];
+
+  onto:locationOfInputMaterial [
+    onto:coordX 1; onto:coordY 0; onto:coordZ 1;
+  ];
+
+  onto:outputArea [
+    a s4syst:ConnectionPoint, onto:ProductManagementArea;
+    onto:relativeCoordinates [
+      onto:coordX 1.2; onto:coordY 0; onto:coordZ 0; # TO BE UPDATED!
+      onto:relativeTo <#this>;
+      onto:xyAngle "0 deg"^^cdt:ucum;
+      onto:angleToXYPlane "0 deg"^^cdt:ucum
+    ];
+    ssn:hasProperty <conveyor/downstream-presence#this>
+  ];
+
+  onto:locationOfOutputProduct [
+    onto:coordX 2.2; onto:coordY 0; onto:coordZ 1;
+  ];
+
+  ssn:hasProperty
+    <silo/tank-level#this>,
+    <conveyor/downstream-presence#this>,
+    <conveyor/upstream-presence#this>;
+
+  onto:hasThingDescription <../../../simu/fillingWorkshop>;
+
+  sosa:hosts
+    <silo#this>,
+    <conveyor#this>,
+    <emergency-stop-button#this>,
+    <signal-light-column#this>,
+    <silo/level-indicator#this>,
+    <silo/limit-switch#this>,
+    <silo/limit-switch2#this>,
+    <silo/status-indicator#this>,
+    <conveyor/upstream-presence-ir-sensor#this>,
+    <conveyor/downstream-presence-ir-sensor#this>,
+    <conveyor/motor#this>,
+    <silo/motor#this>,
+    <plc#this>,
+    <v20#this>,
+    <v90#this>;
+
+  td:hasActionAffordance [
+    a td:ActionAffordance, onto:StopInEmergencyAction;
+    dct:description "Turns off all active components of the machine: It sets the conveyor speed to 0, it restarts the stack light sensor, it closes the filler`s magnetic valve, and it returns the Cartesian robot (and the attached filler) to its home position at the start of the belt.";
+    td:title "Press Emergency Stop";
+    td:name "pressEmergencyStop";
+    td:hasForm [
+      a hctl:Form;
+      hctl:forContentType "application/json";
+      hctl:hasOperationType td:invokeAction;
+      hctl:hasTarget <../../../simu/fillingWorkshop/actions/pressEmergencyStop>;
+      htv:methodName "POST"
+    ];
+    td:isIdempotent false;
+    td:isSafe false
+  ];
+
+  td:hasForm [
+    hctl:forContentType "application/json";
+    hctl:hasOperationType td:readAllProperties, td:readMultipleProperties, td:writeAllProperties, td:writeMultipleProperties;
+    hctl:hasTarget <../../../simu/fillingWorkshop/all/properties>
+  ];
+
+  td:hasPropertyAffordance [
+    a td:PropertyAffordance, js:BooleanSchema, onto:OpticalSensorStatus;
+    dct:description "Reads the status of the optical sensor that detects whether an item is positioned at the end of the conveyor belt.";
+    td:title "Conveyor Head Status";
+    ssn:forProperty <conveyor/downstream-presence#this>;
+    td:name "conveyorHeadStatus";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/fillingWorkshop/properties/conveyorHeadStatus>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:NumberSchema, onto:ConveyorSpeed; 
+    dct:description "Reads and writes the speed (X axis) of the conveyor belt (and the Cartesian robot that moves along the belt) (in meters/sec). The maximum speed is 0.75 meters/sec.";
+    td:title "Conveyor Speed";
+    js:readOnly false;
+    js:writeOnly false;
+    ssn:forProperty <conveyor/speed#this>;
+    td:name "conveyorSpeed";
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/fillingWorkshop/properties/conveyorSpeed>;
+      hctl:hasOperationType td:readProperty, td:writeProperty;
+      hctl:forContentType "application/json"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:BooleanSchema, onto:ValveStatus; 
+    dct:description "Reads the status of the magnetic valve which controls the product flow of the tank. When the status is true, product (e.g. yogurt) is flowing from the tank to an item (e.g. a container).";
+    td:title "Magnetic Valve Status";
+    td:name "magneticValveStatus";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/fillingWorkshop/properties/magneticValveStatus>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:BooleanSchema, onto:OpticalSensorStatus;
+    dct:description "Reads the status of the optical sensor that detects whether an item is positioned at the start of the conveyor belt under the filler.";
+    td:title "Optical Sensor Status";
+    ssn:forProperty <conveyor/upstream-presence#this>;
+    td:name "opticalSensorStatus";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/fillingWorkshop/properties/opticalSensorStatus>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:NumberSchema, onto:XCoordinate; 
+    dct:description "Reads the position of the Cartesian motor on the X axis (in meters).";
+    td:title "Position X";
+    td:name "positionX";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/fillingWorkshop/properties/positionX>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:StringSchema, onto:StackLightStatus; 
+    td:title "Stack Light Status";
+    td:name "stackLightStatus";
+    js:enum "green", "yellow", "red";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/fillingWorkshop/properties/stackLightStatus>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ], [
+    a td:PropertyAffordance, js:NumberSchema, onto:LiquidVolume; 
+    dct:description "Reads the quantity of product in the tank (in liters).";
+    td:title "Tank Level";
+    ssn:forProperty <silo/tank-level#this>;
+    td:name "tankLevel";
+    js:readOnly true;
+    js:writeOnly false;
+    td:hasForm [
+      a hctl:Form;
+      hctl:hasTarget <../../../simu/fillingWorkshop/properties/tankLevel>;
+      hctl:hasOperationType td:readProperty;
+      hctl:forContentType "application/json";
+      htv:methodName "GET"
+    ];
+    td:isObservable false
+  ];
+  
+  td:hasSecurityConfiguration [
+    a wotsec:BasicSecurityScheme
+  ] .

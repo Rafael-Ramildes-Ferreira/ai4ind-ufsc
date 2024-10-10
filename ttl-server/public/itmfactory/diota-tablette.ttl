@@ -1,0 +1,16 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix siren: <http://rdf.insee.fr/siren/> . # registered companies
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<diota-tablette> rdfs:label "Description of Diota tablette, used in the IT’m Factory"@en .
+#   
+<diota-tablette#this> a sosa:Platform, pto:Tablet_computer;
+  rdfs:label "Diota tablette";
+  rdfs:comment "A tablet computer to be used with other Diota systems, such as, Diota projectif or with QR codes for augmented reality."@en;
+  rdfs:seeAlso <http://www.erm-automatismes.com/p410-fr-diota.html>;
+  schema:manufacturer siren:353183601;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

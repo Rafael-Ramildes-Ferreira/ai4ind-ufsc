@@ -1,0 +1,16 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix siren: <http://rdf.insee.fr/siren/> . # registered companies
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<open-edge-alto-touch> rdfs:label "Description of Open Edge Alto in the IT’m Factory"@en .
+#   
+<open-edge-alto-touch#this> a sosa:Platform, pto:3D_printing;
+  rdfs:label "Open Edge Alto";
+  rdfs:comment "A multipurpose and scalable 3D-printer that meets industrial needs"@en;
+  rdfs:seeAlso <http://www.alchimies.eu/MBCPPlayer.asp?ID=1858523>;
+  schema:manufacturer siren:824374532;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

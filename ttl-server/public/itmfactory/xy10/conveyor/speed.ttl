@@ -1,0 +1,9 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensor, Observation, Actuation.
+
+<speed> rdfs:label "Description of the speed property of the conveyor belt of XY10."@en .
+
+<speed#this> a sosa:ObservableProperty, sosa:ActuatableProperty;
+  rdfs:label "conveyor speed";
+  rdfs:comment "The speed of the conveyor belt on the XY10 of the IT’m factory."@en .

@@ -1,0 +1,9 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensor, Observation, Actuation.
+
+<tank-level> rdfs:label "Description of the tank level property of the silo of DX10."@en .
+
+<tank-level#this> a sosa:ObservableProperty;
+  rdfs:label "tank level";
+  rdfs:comment "The level of the tank for the silo of the DX10 of the IT’m factory."@en .

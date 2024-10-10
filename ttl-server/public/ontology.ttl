@@ -1,0 +1,389 @@
+@prefix onto: <ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pto: <http://www.productontology.org/id/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix s4syst: <https://saref.etsi.org/saref4syst/> .
+@prefix schema: <http://schema.org/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<ontology> a owl:Ontology;
+  rdfs:label "AI for Industry 4.0 summer school ontology"@en;
+  rdfs:comment "This is the ontology used for the summer school on AI technologies for trust, interoperability and autonomy in Industry 4.0"@en .
+
+#####################
+# Class definitions
+#####################
+onto:ProductionLine a rdfs:Class, owl:Class;
+  rdfs:label "production line"@en;
+  rdfs:comment "A production line, that is a system of machines that takes material and transforms it, assembles it, in order to make some new product."@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:YogurtProductionLine a rdfs:Class, owl:Class;
+  rdfs:label "yogurt production line"@en;
+  rdfs:comment "A production line producing yogurt."@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf onto:ProductionLine .
+
+onto:StopInEmergencyAction a rdfs:Class, owl:Class;
+  rdfs:label "stop in emergency action"@en;
+  rdfs:comment "An action that's used to stop and reinitialise a machine"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf schema:DeactivateAction .
+
+#onto:FactoryFloorPosition a rdfs:Class, owl:Class;
+#  rdfs:label "factory floor position"@en;
+#  rdfs:comment ""@en;
+#  rdfs:isDefinedBy <ontology>;
+#  rdfs:subClassOf schema:Place .
+                         
+onto:StackLightStatus a rdfs:Class, owl:Class;
+  rdfs:label "stack light status"@en;
+  rdfs:comment "An observable property that indicates the status of the stack light of a machine"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+                         
+onto:ConveyorSpeed a rdfs:Class, owl:Class;
+  rdfs:label "conveyor speed"@en;
+  rdfs:comment "An observable property that indicates the speed of a conveyor in m/s"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:OpticalSensorStatus a rdfs:Class, owl:Class;
+  rdfs:label "optical sensor status"@en;
+  rdfs:comment "An observable property that indicates a boolean value which becomes true if and only if an item is detected"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:ValveStatus a rdfs:Class, owl:Class;
+  rdfs:label "valve status"@en;
+  rdfs:comment "An observable property that indicates a boolean value which becomes true if and only if the valve is open"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty, sosa:ActuatableProperty .
+
+onto:LiquidVolume a rdfs:Class, owl:Class;
+  rdfs:label "liquid volume"@en;
+  rdfs:comment "An observable property that indicates volume in L"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:XCoordinate a rdfs:Class, owl:Class;
+  rdfs:label "x coordinate"@en;
+  rdfs:comment "A property indicating the position in the x coordinate (according to a reference frame)"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty, sosa:ActuatableProperty .
+
+onto:YCoordinate a rdfs:Class, owl:Class;
+  rdfs:label "y coordinate"@en;
+  rdfs:comment "A property indicating the position in the y coordinate (according to a reference frame)"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty, sosa:ActuatableProperty .
+
+onto:ZCoordinate a rdfs:Class, owl:Class;
+  rdfs:label "z coordinate"@en;
+  rdfs:comment "A property indicating the position in the z coordinate (according to a reference frame)"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty, sosa:ActuatableProperty .
+
+onto:Count a rdfs:Class, owl:Class;
+  rdfs:label "count"@en;
+  rdfs:comment "An observable property that indicates a number of times something has been done (such as, a number of pots being filled"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:MaximumCount a rdfs:Class, owl:Class;
+  rdfs:label "maximum count"@en;
+  rdfs:comment ""@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf onto:Count .
+
+onto:ActivityStatus a rdfs:Class, owl:Class;
+  rdfs:label "activity status"@en;
+  rdfs:comment "An observable property that indicates whether a thing is in action (occupied/busy) or not"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:MoveFromToAction a rdfs:Class, owl:Class;
+  rdfs:label "move from to action"@en;
+  rdfs:comment "An action that allows a thing to move from a starting location to a final location"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf schema:MoveAction .
+
+onto:GraspAction a rdfs:Class, owl:Class;
+  rdfs:label "grasp action"@en;
+  rdfs:comment "An action that allows a device such as a robotic hand or pincer to grasp an item, such that it can move it around"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf schema:ActivateAction .
+
+onto:ReleaseAction a rdfs:Class, owl:Class;
+  rdfs:label "release action"@en;
+  rdfs:comment "An action that allows a device such as a robotic hand or pincer to release whatever item it is holding, such that the item is left in place where the hand is at this time"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf schema:DeactivateAction .
+
+onto:PointInSpace a rdfs:Class, owl:Class;
+  rdfs:label "point in space"@en;
+  rdfs:comment "A point in a 3D environment, in a certain frame of reference. In the scenario of the summer school, the frame of reference will be unique and not specified."@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:Bosch-APAS a rdfs:Class, owl:Class;
+  rdfs:label "Bosch APAS"@en;
+  rdfs:comment "The class of all APAS robotic arms, from the Bosch company"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf pto:Robotic_arm .
+
+# Here are classes used in the description of St Gallen's robot
+onto:PhantomX a rdfs:Class, owl:Class;
+  rdfs:label "PhantomX"@en;
+  rdfs:comment "The class of all PhantomX robotic arms"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf pto:Robotic_arm .
+
+onto:DosaxeDX10 a rdfs:Class, owl:Class;
+  rdfs:label "Dosaxe DX10"@en;
+  rdfs:comment "The class of all Dosaxe DX10 filling machine"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf onto:PotFillingMachine .
+
+onto:PotFillingMachine a rdfs:Class, owl:Class;
+  rdfs:label "pot filling machine"@en;
+  rdfs:comment "The class of all machines that can fill pots"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf <http://www.productontology.org/id/Filler_(packaging)> .
+
+onto:PresenceSensor a rdfs:Class, owl:Class;
+  rdfs:label "presence sensor"@en;
+  rdfs:comment "The class of all presence sensors"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:Sensor .
+
+onto:Motor a rdfs:Class, owl:Class;
+  rdfs:label "motor"@en;
+  rdfs:comment "The class of motors"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:Actuator .
+
+onto:Reset a rdfs:Class, owl:Class;
+  rdfs:label "reset"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:SetElbow a rdfs:Class, owl:Class;
+  rdfs:label "set elbow"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:ElbowJoint a rdfs:Class, owl:Class;
+  rdfs:label "elbow joint"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:SetWristAngle a rdfs:Class, owl:Class;
+  rdfs:label "set wrist angle"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:WristAngleJoint a rdfs:Class, owl:Class;
+  rdfs:label "wrist angle joint"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:SetWristRotation a rdfs:Class, owl:Class;
+  rdfs:label "set wrist rotation"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:WristRotateJoint a rdfs:Class, owl:Class;
+  rdfs:label "wrist rotate joint"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:SetBase a rdfs:Class, owl:Class;
+  rdfs:label "set base"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:BaseJoint a rdfs:Class, owl:Class;
+  rdfs:label "base joint"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:SetGripper a rdfs:Class, owl:Class;
+  rdfs:label "set gripper"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:GripperJoint a rdfs:Class, owl:Class;
+  rdfs:label "gripper joint"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:SetShoulder a rdfs:Class, owl:Class;
+  rdfs:label "set shoulder"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:ShoulderJoint a rdfs:Class, owl:Class;
+  rdfs:label "shoulder joint"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:Posture a rdfs:Class, owl:Class;
+  rdfs:label "posture"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:BaseJointValue a rdfs:Class, owl:Class;
+  rdfs:label "base joint value"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:ShoulderJointValue a rdfs:Class, owl:Class;
+  rdfs:label "shoulder joint value"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:ElbowJointValue a rdfs:Class, owl:Class;
+  rdfs:label "elbow joint value"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:WristAngleJointValue a rdfs:Class, owl:Class;
+  rdfs:label "wrist angle joint value"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:WristRotationJointValue a rdfs:Class, owl:Class;
+  rdfs:label "wrist rotation joint value"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:GripperJointValue a rdfs:Class, owl:Class;
+  rdfs:label "gripper joint value"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:Gripper a rdfs:Class, owl:Class;
+  rdfs:label "gripper"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:JointName a rdfs:Class, owl:Class;
+  rdfs:label "joint name"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:JointValue a rdfs:Class, owl:Class;
+  rdfs:label "joint value"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:Elbow a rdfs:Class, owl:Class;
+  rdfs:label "elbow"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:Base a rdfs:Class, owl:Class;
+  rdfs:label "base"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:WristAngle a rdfs:Class, owl:Class;
+  rdfs:label "wrist angle"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:WristRotation a rdfs:Class, owl:Class;
+  rdfs:label "wrist rotation"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:Shoulder a rdfs:Class, owl:Class;
+  rdfs:label "shoulder"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+onto:ProductManagementArea a rdfs:Class, owl:Class;
+  rdfs:label "product management area"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:FeatureOfInterest .
+
+onto:PresenceProperty  a rdfs:Class, owl:Class;
+  rdfs:label "presence property"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:subClassOf sosa:ObservableProperty .
+
+#####################
+# Property definitions
+#####################
+onto:maximumReach a rdf:Property, owl:DatatypeProperty;
+  rdfs:label "maximum reach"@en;
+  rdfs:comment "The maximum distance to which a robotic arm or other such object can go and take or activate something."@en;
+  rdfs:range xsd:decimal;
+  rdfs:isDefinedBy <ontology> .
+
+onto:hasThingDescription a rdf:Property, owl:ObjectProperty;
+  rdfs:label "has thing description"@en;
+  rdfs:comment "A relation between a device or machine and the Thing Description according to the W3C TD standard"@en;
+  rdfs:isDefinedBy <ontology> .
+
+onto:inputArea a rdf:Property, owl:ObjectProperty;
+  rdfs:label "input area"@en;
+  rdfs:comment "The area where a machine, device, or process accesses its input. For instance, the top of a funnel, or the extremity of a conveyor belt where the matter start moving forward over the belt."@en;
+  rdfs:subPropertyOf s4syst:connectsAt;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:range s4syst:ConnectionPoint, onto:ProductManagementArea .
+
+onto:inputMachine a rdf:Property, owl:ObjectProperty;
+  rdfs:label "input machine"@en;
+  rdfs:comment "A machine or subsystem that serves as the starting point for a production process in a production line."@en;
+  rdfs:subPropertyOf ssn:hasSubSystem;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:domain onto:ProductionLine .
+
+onto:outputMachine a rdf:Property, owl:ObjectProperty;
+  rdfs:label "output machine"@en;
+  rdfs:comment "A machine or subsystem that serves as the exit point of the product of a production line."@en;
+  rdfs:subPropertyOf ssn:hasSubSystem;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:domain onto:ProductionLine .
+
+onto:locationOfInputMaterial a rdf:Property, owl:ObjectProperty;
+  rdfs:label "location of input material"@en;
+  rdfs:comment "The precise location of where the input material must be placed for a machine or device to process it"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:range onto:PointInSpace .
+
+onto:outputArea a rdf:Property, owl:ObjectProperty;
+  rdfs:label "output area"@en;
+  rdfs:comment "The area at which place a device, machine, or process delivers its final output. For instance, the end of a conveyor belt, where what is moving on the belt either cannot go forward any more, or leave the belt."@en;
+  rdfs:subPropertyOf s4syst:connectsAt;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:range s4syst:ConnectionPoint, onto:ProductManagementArea .
+
+onto:locationOfOutputProduct a rdf:Property, owl:ObjectProperty;
+  rdfs:label "location of output product"@en;
+  rdfs:comment "The precise location of where the output product arrives after a machine or device has processed it"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:range onto:PointInSpace .
+
+onto:hasOriginCoordinates a rdf:Property, owl:ObjectProperty;
+  rdfs:label "has origin coordinates"@en;
+  rdfs:comment "The coordinates, within a larger frame, that serve as the origin point of relative coordinates of a machine or object"@en;
+  rdfs:subPropertyOf onto:relativeCoordinates;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:range onto:PointInSpace .
+
+onto:relativeCoordinates a rdf:Property, owl:ObjectProperty;
+  rdfs:label "relative coordinates";
+  rdfs:comment "The coordinates of a reference point of an object or location, relative to a larger object, location, or frame. For instance, the coordinate of a room relative to a building, the coordinates of a machine relative to a room, the coordinates of a component in a machine relative to the machine."@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:range onto:PointInSpace .
+
+onto:coordX a rdf:Property, owl:DatatypeProperty;
+  rdfs:label "x";
+  rdfs:comment "The x coordinate of a spatial location"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:domain onto:PointInSpace;
+  rdfs:range xsd:decimal .
+
+onto:coordY a rdf:Property, owl:DatatypeProperty;
+  rdfs:label "y";
+  rdfs:comment "The y coordinate of a spatial location"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:domain onto:PointInSpace;
+  rdfs:range xsd:decimal .
+
+onto:coordZ a rdf:Property, owl:DatatypeProperty;
+  rdfs:label "z";
+  rdfs:comment "The z coordinate of a spatial location"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:domain onto:PointInSpace;
+  rdfs:range xsd:decimal .
+
+onto:relativeTo a rdf:Property, owl:ObjectProperty;
+  rdfs:label "relative to";
+  rdfs:comment "The object or location of reference relative to which the coordinates are given"@en;
+  rdfs:isDefinedBy <ontology>;
+  rdfs:domain onto:PointInSpace .

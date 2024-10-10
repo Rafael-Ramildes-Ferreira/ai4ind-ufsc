@@ -1,0 +1,49 @@
+@prefix bot: <https://w3id.org/bot#> . # building topology
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+
+<itm> rdfs:label "Description of the IT’m Factory"@en .
+
+<itm#this> a sosa:Platform, pto:Factory;
+  rdfs:label "IT’m Factory"@en;
+  rdfs:comment "IT’m Factory – Usine numérisée physique et virtuelle et espace de coopération, de formation et de prototypage de solutions technologiques numériques et organisationnelles autour de la transition industrielle."@fr;
+  rdfs:seeAlso <https://www.mines-stetienne.fr/entreprise/itm-factory/>;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/> ;
+  sosa:hosts
+    <production-line#this>,
+    <vr-platform#this>,
+    <zmorph-vx#this>,
+    <open-edge-alto-touch#this>,
+    <vls-3-50#this>,
+    <evixscan3d#this>,
+    <erm-ml10#this>,
+    <boa-concept-plug-and-carry#this>,
+    <xy10#this>,
+    <dx10#this>,
+    <vl10#this>,
+    <rexroth-active-cockpit#this>,
+    <diota-projectif#this>,
+    <diota-tablette#this>,
+    <agv-mir#this>,
+    <bosch-apas#this>,
+    <stormshield-sn510#this>,
+    <stormshield-sni40#this>,
+    <hp-5130hi#this>,
+    <rexroth-active-assist#this> .
+
+<https://territoire.emse.fr/kg/emse/fayol/RDC/012> a bot:Space;
+  bot:hasSpace
+    <reception-area#this>,
+    <servers-area#this>,      #Armoire des serveurs informatique    
+    <lma#this>,              #Lean management area
+    <mpa#this>,              #Mass personalization area
+    <storage-area#this>,      #Zone de stockage
+    <dcpa#this>,             #Data collection and processing area
+    <quality-test-area#this>,  #Quality laboratory area
+    <office-area1#this>,    
+    <office-area2#this>,
+    <office-area3#this> .
+

@@ -1,0 +1,16 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix siren: <http://rdf.insee.fr/siren/> . # registered companies
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<erm-ml10> rdfs:label "Description of ML10 in the IT’m Factory"@en .
+#   
+<erm-ml10#this> a sosa:Platform;
+  rdfs:label "ML10";
+  rdfs:comment "Manual silicone moulding kit"@en;
+  rdfs:seeAlso <https://www.erm-automatismes.com/p201-eng-manual-silicone-moulding-kit.html>;
+  schema:manufacturer siren:353183601;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

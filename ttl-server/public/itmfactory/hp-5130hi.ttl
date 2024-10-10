@@ -1,0 +1,13 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<hp-5130hi> rdfs:label "Description of HPE FlexNetwork 5130 HI in the IT’m Factory"@en .
+#   
+<hp-5130hi#this> a sosa:Platform, pto:Network_switch;
+  rdfs:label "HPE FlexNetwork 5130 HI";
+  rdfs:comment "The HPE FlexNetwork 5130 HI Switch Series comprises Gigabit Ethernet switches that support static and RIP Layer 3 routing, diversified services, and IPv6 forwarding, as well as provide four 10 Gigabit Ethernet (10GbE) interfaces"@en;
+  rdfs:seeAlso <https://h50146.www5.hpe.com/products/networking/datasheet/HPE_FlexNetwork_5130_HI_Switch_Series.pdf>;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

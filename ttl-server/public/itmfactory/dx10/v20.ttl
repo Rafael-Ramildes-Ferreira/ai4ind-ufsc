@@ -1,0 +1,14 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix dbr: <http://dbpedia.org/resource/> . # DBpedia
+@prefix s4syst: <https://saref.etsi.org/saref4syst/> . # SAREF for systems
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix ssn: <http://www.w3.org/ns/ssn/> . # Semantic sensor networks ontology.
+
+<v20> rdfs:label "Description of the V20 in the Dosaxe DX10 in Mines Saint-Étienne."@en .
+
+<v20#this> a sosa:System;
+  rdfs:label "V20";
+  rdfs:comment "Variateur SINAMICS V20"@en;
+  schema:manufacturer dbr:Siemens;
+  s4syst:subSystemOf <#this> .

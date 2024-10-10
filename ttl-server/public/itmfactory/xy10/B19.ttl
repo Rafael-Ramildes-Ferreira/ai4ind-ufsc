@@ -1,0 +1,40 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eco: <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4#> .
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv: <http://www.w3.org/2011/http#> .
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix pto: <http://www.productontology.org/id/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix td: <https://www.w3.org/2019/wot/td#> .
+@prefix ua: <http://opcfoundation.org/UA/> .
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/xy10/B19> a eco:C_AGZ376003,
+        pto:Proximity_sensor,
+        pto:Sensor ;
+    rdfs:label "E proximity Switch type Sensor"@en ;
+    dct:title "B19" ;
+    schema:manufacturer [ a schema:Organization ;
+            schema:name "IGUS" ] ;
+    schema:subjectOf <https://www.igus.com/product?artNr=INI-AB-I-025-B-AA> ;
+    rdfs:comment "It indicates the Cartesian robot belt reaches to bottom limit point on the Z Axis on XY10 machine of the IT'm factory."@en ;
+    sosa:observes <https://ci.mines-stetienne.fr/kg/itmfactory/xy10/B19#this> ;
+    td:hasPropertyAffordance [ a js:BooleanSchema,
+                td:PropertyAffordance ;
+            dct:description "Indicates the status of the Cartesian robot Z axis on XY10 machine of the IT'm factory at the bottom limit point. Normally the switch is in close and the status is true, if the Cartesian robot belt reaches to bottom limit point then the switch is opened and the status is false." ;
+            dct:title "AxeZ_Fdc_Bas_B19" ;
+            js:readOnly false ;
+            js:writeOnly false ;
+            td:hasForm [ a hctl:Form ;
+                    ua:nodeId "ns=2;s=ITm Factory.XY10.AxeZ Fdc Bas B19" ;
+                    htv:methodName "GET" ;
+                    hctl:forContentType "application/json" ;
+                    hctl:hasOperationType td:readProperty ;
+                    hctl:hasTarget <opc.tcp://10.1.9.1:49320> ] ;
+            td:isObservable true ;
+            td:name "AxeZ_Fdc_Bas_B19" ] ;
+    td:hasSecurityConfiguration [ a wotsec:NoSecurityScheme ] .
+

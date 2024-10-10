@@ -1,0 +1,40 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eco: <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4#> .
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv: <http://www.w3.org/2011/http#> .
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix pto: <http://www.productontology.org/id/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix td: <https://www.w3.org/2019/wot/td#> .
+@prefix ua: <http://opcfoundation.org/UA/> .
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/vl10/B7> a eco:C_AKE702002-tax,
+        pto:Connecting_rod,
+        pto:Cylinder ;
+    rdfs:label "Compact Cylinder with Guide Rod Type"@en ;
+    dct:title "B7" ;
+    schema:manufacturer [ a schema:Organization ;
+            schema:name "SMC" ] ;
+    schema:subjectOf <https://www.smc.eu/en-eu/products/c-d-qm-compact-cylinder-guide-rod-type~34304~cfg?partNumber=CDQMA32TF-40> ;
+    rdfs:comment "It indicates the Clamp status on VL10 machine of the IT'm factory."@en ;
+    sosa:observes <https://ci.mines-stetienne.fr/kg/itmfactory/vl10/B7#this> ;
+    td:hasPropertyAffordance [ a js:BooleanSchema,
+                td:PropertyAffordance ;
+            dct:description "Indicates the clamp status of the airlock cylinder on the conveyor belt on VL10 machine of the IT'm factory. Normally the airlock is in off and the clamp status is true, if the bottle reaches to airlock place and at that time one more bottle is present at the downstream of the conveyor then air lock is on and the clamp status is false." ;
+            dct:title "Verin_Sas_Rentree" ;
+            js:readOnly false ;
+            js:writeOnly false ;
+            td:hasForm [ a hctl:Form ;
+                    ua:nodeId "ns=2;s=ITm Factory.VL10.Verin Sas Rentree" ;
+                    htv:methodName "GET" ;
+                    hctl:forContentType "application/json" ;
+                    hctl:hasOperationType td:readProperty ;
+                    hctl:hasTarget <opc.tcp://10.1.9.1:49320> ] ;
+            td:isObservable true ;
+            td:name "Verin_Sas_Rentree" ] ;
+    td:hasSecurityConfiguration [ a wotsec:NoSecurityScheme ] .
+

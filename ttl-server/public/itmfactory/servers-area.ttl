@@ -1,0 +1,9 @@
+@prefix bot: <https://w3id.org/bot#> . # building topology
+@prefix itm: <> . # ns for IT’m factory
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+
+<servers-area> rdfs:label "Description of the servers area in the IT’m factory"@en .
+
+<servers-area#this> a bot:Space;
+  rdfs:label  "servers area"@en;
+  rdfs:comment  "Servers area in the IT’m factory."@en .

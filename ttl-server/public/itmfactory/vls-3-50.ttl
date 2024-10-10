@@ -1,0 +1,13 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<vls-3-50> rdfs:label "Description of VLS 3.40 in the IT’m Factory"@en .
+#   
+<vls-3-50#this> a sosa:Platform, pto:Laser_cutting;
+  rdfs:label "VLS 3.50";
+  rdfs:comment "The desktop VLS3.50 is small enough to fit on a work surface yet powerful enough to meet the requirements of on-demand production. Used frequently for educational purposes, the VLS3.50 is also a great choice for starting laser cutting and engraving."@en;
+  rdfs:seeAlso <https://tech-labs.com/sites/default/files/vls350.pdf>;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

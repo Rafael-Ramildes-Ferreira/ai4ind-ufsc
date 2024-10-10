@@ -1,0 +1,30 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> . # Dublin core vocabulary
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> . # hypermedia controls ontology
+@prefix htv: <http://www.w3.org/2011/http#> . # HTTP in RDF vocabulary
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> . #JSON schema vocabulary
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix dc: <http://purl.org/dc/elements/1.1/>.@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix silo: <> . # namespace for elements of the dosaxe silo
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Semantic sensor networks ontology.
+@prefix td: <https://www.w3.org/2019/wot/td#> . # Thing Descriptions
+
+<level-indicator> rdfs:label "Description of the level indicator of the silo in the Dosaxe DX10 in Mines Saint-Étienne."@en .
+
+<level-indicator#this> a pto:Level_Sensor;
+  rdfs:label ""@en;
+  rdfs:comment ""@en;
+  sosa:observes <tank-level#this>;
+  td:hasPropertyAffordance [
+    dc:description "quantity of product in the tank in liter" ;
+    a js:NumberSchema ;
+    js:readOnly true ;
+    js:writeOnly false ;
+    td:hasForm [
+      htv:methodName "GET" ;
+      hctl:forContentType "application/json" ;
+      hctl:hasOperationType td:readProperty ;
+      hctl:hasTarget <https://ci.mines-stetienne.fr/simu/fillingWorkshop/properties/tankLevel>
+    ] ;
+    td:isObservable false ;
+    td:name "tankLevel"
+  ] .

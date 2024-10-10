@@ -1,0 +1,13 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<evixscan3d> rdfs:label "Description of eviXscan 3D in the IT’m Factory"@en .
+#   
+<evixscan3d#this> a sosa:Platform, pto:3D_scanning;
+  rdfs:label "eviXscan 3D";
+  rdfs:comment "A 3-D scanner by Evatronix"@en;
+  rdfs:seeAlso <https://evixscan3d.com/>;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

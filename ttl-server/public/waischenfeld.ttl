@@ -1,0 +1,13 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bot: <https://w3id.org/bot#> .
+
+<waischenfeld> rdfs:label "Description of the Forschungscampus Waischenfeld ."   .
+
+<waischenfeld#id> rdfs:label "Waischenfeld"@de ; owl:sameAs <http://dbpedia.org/resource/Waischenfeld> , <http://www.wikidata.org/entity/Q503128> .
+
+<waischenfeld#entrance-hall> rdf:type bot:Space  ; 
+                      rdfs:comment "The hall at the entrance of the building of Forschungscampus Waischenfeld."@en ;
+                      rdfs:label "entrance hall"@en .

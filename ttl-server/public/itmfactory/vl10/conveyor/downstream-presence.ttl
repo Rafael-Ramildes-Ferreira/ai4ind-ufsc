@@ -1,0 +1,9 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix ssn: <http://www.w3.org/ns/ssn/> . # Semantic sensor networks ontology.
+
+<downstream-presence> rdfs:label "Description of the presence property at the end of the conveyor belt of VL10."@en .
+
+<downstream-presence#this> a onto:PresenceProperty;
+  rdfs:label "downstream presence";
+  rdfs:comment "Presence of an object at the end of the conveyor belt on the VL10 of the IT’m factory."@en .

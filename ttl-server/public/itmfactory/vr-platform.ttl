@@ -1,0 +1,12 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+
+<vr-platform> rdfs:label "Description of the Virtual Reality platform in IT’m Factory"@en .
+
+<vr-platform#this> a sosa:Platform, pto:Factory;
+  rdfs:label "Virtual Reality set";
+  rdfs:comment "Vive headset, controllers, detectors, etc."@fr;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/> .

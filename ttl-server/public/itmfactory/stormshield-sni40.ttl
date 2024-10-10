@@ -1,0 +1,16 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix siren: <http://rdf.insee.fr/siren/> . # registered companies
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<stormshield-sni40> rdfs:label "Description of SNi40 in the IT’m Factory"@en .
+#   
+<stormshield-sni40#this> a sosa:Platform, <http://www.productontology.org/id/Firewall_(computing)>;
+  rdfs:label "SNi40";
+  rdfs:comment "The scurity solution dedicated to industrial sustems with strict operational constraints"@en;
+  rdfs:seeAlso <https://www.stormshield.com/products/sni40/>;
+  schema:manufacturer siren:428173975;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

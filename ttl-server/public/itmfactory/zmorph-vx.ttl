@@ -1,0 +1,13 @@
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<zmorph-vx> rdfs:label "Description of Zmorph VX in the IT’m Factory"@en .
+#   
+<zmorph-vx#this> a sosa:Platform, pto:3D_printing;
+  rdfs:label "Zmorph VX";
+  rdfs:comment "ZMorph VX Multitool 3D Printer is a powerful and practical platform for innovation, production, and science."@fr;
+  rdfs:seeAlso <https://zmorph3d.com/product/zmorph-vx>;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

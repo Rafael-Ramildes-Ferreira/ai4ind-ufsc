@@ -1,0 +1,16 @@
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix silo: <> . # namespace for elements of the dosaxe silo
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+
+<> rdfs:label "Description of the silo in the Dosaxe DX10 in Mines Saint-Étienne."@en .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/dx10/silo#this> a sosa:System;
+  rdfs:label "dosaxe silo"@en;
+  rdfs:comment "The moveable part of the dosaxe that contains the product to fill the cups and its various components to move (motor), detect the level of the product, etc."@en;
+  sosa:hosts
+  	<silo/level-indicator#this>,
+    <silo/limit-switch#this>,
+    <silo/limit-switch2#this>,
+    <silo/status-indicator#this>,
+    <silo/motor#this> .

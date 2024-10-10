@@ -1,0 +1,12 @@
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+@prefix ssn: <http://www.w3.org/ns/ssn/> . # Some more sensor stuff
+
+<dx10-alarme-v90> rdfs:label "Description of the alarm on the DX10 of Mines Saint-Étienne"@en .
+
+<dx10-alarme-v90#this> a sosa:Actuator, pto:Alarm_device;
+  rdfs:label "Alarme V90"@fr;
+  rdfs:comment "This activates the alarm of the Dosaxe DX10."@en;
+  ssn:forProperty <alarm-on#this> .

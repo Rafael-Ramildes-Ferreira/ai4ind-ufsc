@@ -1,0 +1,30 @@
+@prefix dct: <http://purl.org/dc/terms/> . # Dublin Core terms
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> . # hypermedia controls ontology
+@prefix htv: <http://www.w3.org/2011/http#> . # HTTP in RDF vocabulary
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix s4syst: <https://saref.etsi.org/saref4syst/> . # SAREF for systems
+@prefix td: <https://www.w3.org/2019/wot/td#> . # Thing Descriptions
+
+
+<emergency-stop-button> rdfs:label "Description of the emergency stop button on the Dosaxe DX10 in Mines Saint-Étienne."@en .
+
+<emergency-stop-button#this> a td:Thing;
+  rdfs:label "stop DX10";
+  rdfs:comment "The emergency stop button on the Dosaxe DX10, that can stop all ongoing actions by the machine."@en;
+  s4syst:subSystemOf <#this>;
+  td:hasActionAffordance [
+    a td:ActionAffordance, onto:StopInEmergencyAction;
+    dct:description "Turns off all active components of the machine: It sets the conveyor speed to 0, it restarts the stack light sensor, it closes the filler`s magnetic valve, and it returns the Cartesian robot (and the attached filler) to its home position at the start of the belt.";
+    dct:title "Press Emergency Stop";
+    td:name "pressEmergencyStop";
+    td:hasForm [
+      a hctl:Form;
+      hctl:forContentType "application/json";
+      hctl:hasOperationType td:invokeAction;
+      hctl:hasTarget <../../../simu/fillingWorkshop/actions/pressEmergencyStop>;
+      htv:methodName "POST"
+    ];
+    td:isIdempotent false;
+    td:isSafe false
+  ] .

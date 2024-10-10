@@ -1,0 +1,10 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix onto: <https://ci.mines-stetienne.fr/kg/ontology#> . # The AI for industry summer school ontology
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # SOSA ontology.
+
+<motor> rdfs:label "Description of the motor of the conveyor belt of DX10."@en .
+
+<motor#this> a onto:Motor;
+  rdfs:label "conveyor motor";
+  rdfs:comment "A motor for the conveyor belt on the DX10 of the IT’m factory."@en;
+  sosa:actsOnProperty <speed#this> .

@@ -51,3 +51,16 @@ services:
       - 2001:3001
     shm_size: "1gb"
     restart: unless-stopped      
+
+  ttlserver:
+    image: httpd:2.4
+    networks:
+      - ai4industry
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./ttl-server/public:/usr/local/apache2/htdocs/
+    ports:
+      - 4000:80

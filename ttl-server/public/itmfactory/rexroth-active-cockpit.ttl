@@ -1,0 +1,16 @@
+@prefix dbr: <http://dbpedia.org/resource/> . # registered companies
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . # geo stuff
+@prefix itm: <> . # ns for IT’m factory
+@prefix pto: <http://www.productontology.org/id/> . # The product types ontology
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . # RDFS
+@prefix schema: <http://schema.org/> . # Schema.org
+@prefix sosa: <http://www.w3.org/ns/sosa/> . # Sensors, Actuators, etc.
+#
+<rexroth-active-assist> rdfs:label "Description of ActiveAssist in the IT’m Factory"@en .
+#   
+<rexroth-active-assist#this> a sosa:Platform, pto:Software;
+  rdfs:label "ActiveCockpit";
+  rdfs:comment "ActiveCockpit – Interactive and extendible communication platform for the continuous improvement process"@fr;
+  rdfs:seeAlso <https://www.boschrexroth.com/en/xc/products/product-groups/assembly-technology/news/activecockpit/index>;
+  schema:manufacturer dbr:Bosch_Rexroth;
+  geo:location <https://territoire.emse.fr/kg/emse/fayol/RDC/012> .

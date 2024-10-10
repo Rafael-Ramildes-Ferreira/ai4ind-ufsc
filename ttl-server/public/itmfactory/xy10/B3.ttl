@@ -1,0 +1,39 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix eco: <http://www.ebusiness-unibw.org/ontologies/eclass/5.1.4#> .
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix htv: <http://www.w3.org/2011/http#> .
+@prefix js: <https://www.w3.org/2019/wot/json-schema#> .
+@prefix pto: <http://www.productontology.org/id/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix td: <https://www.w3.org/2019/wot/td#> .
+@prefix ua: <http://opcfoundation.org/UA/> .
+@prefix wotsec: <https://www.w3.org/2019/wot/security#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://ci.mines-stetienne.fr/kg/itmfactory/xy10/B3> a eco:C_AAX025004,
+        pto:Reed_switch ;
+    rdfs:label "Reed Switch, Direct Mounting, Grommet, In-line"@en ;
+    dct:title "B3" ;
+    schema:manufacturer [ a schema:Organization ;
+            schema:name "SMC" ] ;
+    schema:subjectOf <https://www.smc.eu/en-eu/products/d-a90-a93-a96-reed-switch-direct-mounting-grommet-in-line~75484~cfg?partNumber=D-A93> ;
+    rdfs:comment "It indicates the contact(Bar) is opened and it is picking the tray from tray gravity on XY10 machine of the IT'm factory."@en ;
+    sosa:observes <https://ci.mines-stetienne.fr/kg/itmfactory/xy10/B3#this> ;
+    td:hasPropertyAffordance [ a js:BooleanSchema,
+                td:PropertyAffordance ;
+            dct:description "Indicates the contact(Bar) is opened and it is picking the tray from tray gravity on XY10 machine of the IT'm factory." ;
+            dct:title "Depil_Barq_Sorti_B3" ;
+            js:readOnly false ;
+            js:writeOnly false ;
+            td:hasForm [ a hctl:Form ;
+                    ua:nodeId "ns=2;s=ITm Factory.XY10.Depil Barq Sorti B3" ;
+                    htv:methodName "GET" ;
+                    hctl:forContentType "application/json" ;
+                    hctl:hasOperationType td:readProperty ;
+                    hctl:hasTarget <opc.tcp://10.1.9.1:49320> ] ;
+            td:isObservable true ;
+            td:name "Depil_Barq_Sorti_B3" ] ;
+    td:hasSecurityConfiguration [ a wotsec:NoSecurityScheme ] .
+
