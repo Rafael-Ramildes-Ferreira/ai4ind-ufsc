@@ -3,3 +3,5 @@ node_red_data
 browser-config
 .DS_Store
 .gradle
+bin
+build
