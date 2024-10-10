@@ -31,7 +31,7 @@ hasTargetURI(F, URI) :- .member(kv(href, URI), F) .
 
 +!test <-
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
-    !getTD("http://http://simulator:8080/storageRack") ;
+    !getTD("http://simulator:8080/storageRack") ;
     !listProperties("tag:storageRack") ;
     !readProperty("tag:storageRack", conveyorSpeed) ;
     !writeProperty("tag:storageRack", conveyorSpeed, 0.5) ;
