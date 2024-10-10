@@ -13,7 +13,7 @@ docker compose up
 - NodeRed: [http://127.0.0.1:1880](http://127.0.0.1:1880)
 - Browser: [http://127.0.0.1:2000](http://127.0.0.1:2000)
     - GUI should be open in the above browser: [http://gui:3001](http://gui:3001)
-- RRF server: [http://localhost:4000](http://localhost:4000)
+- RDF server: [http://localhost:4000](http://localhost:4000)
 
 ## How to build the images
 Note that the required images can be obtained from DockerHub. What follow is used to publish the images there.

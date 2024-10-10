@@ -22,7 +22,7 @@
       a hctl:Form;
       hctl:forContentType "application/json";
       hctl:hasOperationType td:invokeAction;
-      hctl:hasTarget <../../../simu/fillingWorkshop/actions/pressEmergencyStop>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/actions/pressEmergencyStop>;
       htv:methodName "POST"
     ];
     td:isIdempotent false;

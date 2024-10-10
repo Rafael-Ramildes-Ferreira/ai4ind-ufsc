@@ -54,7 +54,7 @@
 
   ssn:hasProperty <conveyor/downstream-presence#this>;
 
-  onto:hasThingDescription <../../../simu/storageRack>;
+  onto:hasThingDescription <http://simulator:8080/storageRack>;
 
   sosa:hosts
     <conveyor#this>,
@@ -70,7 +70,7 @@
     td:name "pickItem";
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/actions/pickItem>;
+      hctl:hasTarget <http://simulator:8080/storageRack/actions/pickItem>;
       hctl:hasOperationType td:invokeAction;
       hctl:forContentType "application/json";
       htv:methodName "POST"
@@ -93,7 +93,7 @@
     td:name "pressEmergencyStop";
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/actions/pressEmergencyStop>;
+      hctl:hasTarget <http://simulator:8080/storageRack/actions/pressEmergencyStop>;
       hctl:hasOperationType td:invokeAction;
       hctl:forContentType "application/json";
       htv:methodName "POST"
@@ -105,7 +105,7 @@
   td:hasForm [
     hctl:forContentType "application/json";
     hctl:hasOperationType td:readAllProperties, td:readMultipleProperties, td:writeAllProperties, td:writeMultipleProperties;
-    hctl:hasTarget <../../../simu/storageRack/all/properties>
+    hctl:hasTarget <http://simulator:8080/storageRack/all/properties>
   ];
 
   td:hasPropertyAffordance [
@@ -122,7 +122,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/properties/capacity>;
+      hctl:hasTarget <http://simulator:8080/storageRack/properties/capacity>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -137,7 +137,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/properties/clampStatus>;
+      hctl:hasTarget <http://simulator:8080/storageRack/properties/clampStatus>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -152,7 +152,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/properties/conveyorSpeed>;
+      hctl:hasTarget <http://simulator:8080/storageRack/properties/conveyorSpeed>;
       hctl:hasOperationType td:readProperty, td:writeProperty;
       hctl:forContentType "application/json"
     ];
@@ -166,7 +166,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/properties/positionX>;
+      hctl:hasTarget <http://simulator:8080/storageRack/properties/positionX>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -181,7 +181,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/properties/positionZ>;
+      hctl:hasTarget <http://simulator:8080/storageRack/properties/positionZ>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -197,7 +197,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/properties/stackLightStatus>;
+      hctl:hasTarget <http://simulator:8080/storageRack/properties/stackLightStatus>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"

@@ -20,7 +20,7 @@
     td:name "pressEmergencyStop";
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/storageRack/actions/pressEmergencyStop>;
+      hctl:hasTarget <http://simulator:8080/storageRack/actions/pressEmergencyStop>;
       hctl:hasOperationType td:invokeAction;
       hctl:forContentType "application/json";
       htv:methodName "POST"

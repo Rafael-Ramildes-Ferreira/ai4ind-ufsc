@@ -74,7 +74,7 @@
     <conveyor/downstream-presence#this>,
     <conveyor/upstream-presence#this>;
 
-  onto:hasThingDescription <../../../simu/fillingWorkshop>;
+  onto:hasThingDescription <http://simulator:8080/fillingWorkshop>;
 
   sosa:hosts
     <silo#this>,
@@ -102,7 +102,7 @@
       a hctl:Form;
       hctl:forContentType "application/json";
       hctl:hasOperationType td:invokeAction;
-      hctl:hasTarget <../../../simu/fillingWorkshop/actions/pressEmergencyStop>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/actions/pressEmergencyStop>;
       htv:methodName "POST"
     ];
     td:isIdempotent false;
@@ -112,7 +112,7 @@
   td:hasForm [
     hctl:forContentType "application/json";
     hctl:hasOperationType td:readAllProperties, td:readMultipleProperties, td:writeAllProperties, td:writeMultipleProperties;
-    hctl:hasTarget <../../../simu/fillingWorkshop/all/properties>
+    hctl:hasTarget <http://simulator:8080/fillingWorkshop/all/properties>
   ];
 
   td:hasPropertyAffordance [
@@ -125,7 +125,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/fillingWorkshop/properties/conveyorHeadStatus>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/properties/conveyorHeadStatus>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -141,7 +141,7 @@
     td:name "conveyorSpeed";
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/fillingWorkshop/properties/conveyorSpeed>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/properties/conveyorSpeed>;
       hctl:hasOperationType td:readProperty, td:writeProperty;
       hctl:forContentType "application/json"
     ];
@@ -155,7 +155,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/fillingWorkshop/properties/magneticValveStatus>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/properties/magneticValveStatus>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -171,7 +171,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/fillingWorkshop/properties/opticalSensorStatus>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/properties/opticalSensorStatus>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -186,7 +186,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/fillingWorkshop/properties/positionX>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/properties/positionX>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -201,7 +201,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/fillingWorkshop/properties/stackLightStatus>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/properties/stackLightStatus>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -217,7 +217,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/fillingWorkshop/properties/tankLevel>;
+      hctl:hasTarget <http://simulator:8080/fillingWorkshop/properties/tankLevel>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"

@@ -69,7 +69,7 @@
 
   ssn:hasProperty <conveyor/upstream-presence#this>;
 
-  onto:hasThingDescription <../../../simu/packagingWorkshop>;
+  onto:hasThingDescription <http://simulator:8080/packagingWorkshop>;
 
   sosa:hosts
     <conveyor#this>,
@@ -87,7 +87,7 @@
     td:name "pressEmergencyStop";
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/packagingWorkshop/actions/pressEmergencyStop>;
+      hctl:hasTarget <http://simulator:8080/packagingWorkshop/actions/pressEmergencyStop>;
       hctl:hasOperationType td:invokeAction;
       hctl:forContentType "application/json";
       htv:methodName "POST"
@@ -99,7 +99,7 @@
   td:hasForm [
     hctl:forContentType "application/json";
     hctl:hasOperationType td:readAllProperties, td:readMultipleProperties, td:writeAllProperties, td:writeMultipleProperties;
-    hctl:hasTarget <../../../simu/packagingWorkshop/all/properties>
+    hctl:hasTarget <http://simulator:8080/packagingWorkshop/all/properties>
   ];
 
   td:hasPropertyAffordance [
@@ -111,7 +111,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/packagingWorkshop/properties/conveyorHeadStatus>;
+      hctl:hasTarget <http://simulator:8080/packagingWorkshop/properties/conveyorHeadStatus>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -126,7 +126,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/packagingWorkshop/properties/conveyorSpeed>;
+      hctl:hasTarget <http://simulator:8080/packagingWorkshop/properties/conveyorSpeed>;
       hctl:hasOperationType td:readProperty, td:writeProperty;
       hctl:forContentType "application/json"
     ];
@@ -140,7 +140,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/packagingWorkshop/properties/opticalSensorContainer1>;
+      hctl:hasTarget <http://simulator:8080/packagingWorkshop/properties/opticalSensorContainer1>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -155,7 +155,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/packagingWorkshop/properties/opticalSensorContainer2>;
+      hctl:hasTarget <http://simulator:8080/packagingWorkshop/properties/opticalSensorContainer2>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -170,7 +170,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/packagingWorkshop/properties/opticalSensorPackage>;
+      hctl:hasTarget <http://simulator:8080/packagingWorkshop/properties/opticalSensorPackage>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -185,7 +185,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/packagingWorkshop/properties/packageBuffer>;
+      hctl:hasTarget <http://simulator:8080/packagingWorkshop/properties/packageBuffer>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
@@ -200,7 +200,7 @@
     js:writeOnly false;
     td:hasForm [
       a hctl:Form;
-      hctl:hasTarget <../../../simu/packagingWorkshop/properties/stackLightStatus>;
+      hctl:hasTarget <http://simulator:8080/packagingWorkshop/properties/stackLightStatus>;
       hctl:hasOperationType td:readProperty;
       hctl:forContentType "application/json";
       htv:methodName "GET"
