@@ -2,6 +2,7 @@
 
 This repository contains auxiliary material for the Final Project of the [MultiAgent course](https://jomifred.github.io/mas/) of [Prof. Jomi Hubner](https://jomifred.github.io). The project description is [here](https://docs.google.com/document/d/1W6TgXikrYhW47doUN8UX8MfEgXsF8KFMu-lcJAeMM9Q/edit?usp=sharing).
 
+Most of the source code comes from [AI4 Industry summer school hackathon](https://gitlab.emse.fr/ai4industry/hackathon/-/wikis/home).
 
 To run the containers (simulator, GUI, NodeRed, ...):
 
