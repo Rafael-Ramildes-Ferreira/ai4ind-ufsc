@@ -2,7 +2,7 @@ mas itm_factory_mas {
 
     agent bob {
         beliefs: credentials("simu1", "simu1")
-                 entryPoint("http://ttlserver:80") //"http://localhost:4000")
+                 entryPoint("http://ttlserver:4000") //"http://localhost:4000")
         focus: itm_factory_workspace.h
     }
 
