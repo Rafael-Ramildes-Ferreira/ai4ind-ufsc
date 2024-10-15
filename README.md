@@ -16,6 +16,49 @@ docker compose up
     - Simulation GUI should be open in this browser: [http://gui:3001](http://gui:3001)
 - RDF server: [http://localhost:4000](http://localhost:4000)
 
+![diagram](https://www.plantuml.com/plantuml/svg/XL7DQiCm3BxhAKHEWr7cDeCMdxgH3NPODzBSGWzkxNPcZbriPpsClViS9-rS2EnYOKdVZwIbyypwjb7WFgK-CiiQr8OB9uuu9m0WjHTsptO2iwf0kY0BaY5pkAuAg9riMiMyiHkSn0n0VMXb-DsG2QPbYXdD2ScpqB6rvkI47ReYu5oVPbUAT4P8B_Vu_bPM4DyWTQ48WbRiFDC79P0TXFOElm6mPahknBYFghWjdzPL1fWeDL9pfFbiFejo3wylgoAX6HBZaBnts4DYY1RDTWCnZDheBC3FrRHbyOpq_Znn-CMPQ-zL6FKhBkmlc_0c3RHh0AYx4w8L_9yDNErwkXXEkogBg374e9hm1VXUcHDoiH_1txNoJD5VB7LooNOadBcFhM6M1vQbqBnjr2y0)
+
+<!-- @startuml
+skinparam nodesep 70
+
+
+interface "TD :8080" as STD
+[simulator] - STD
+
+
+[gui] -(0- [simulator] : ":3003"
+
+[browser] -(0- [gui] : ":3001"
+
+interface ":2000" as BPORT
+BPORT - [browser]
+
+
+rectangle agents {
+
+ [alice] -(0- [simulator] : "TD+REST"
+ interface "mind :3272" as AMIND
+ [alice] - AMIND
+
+ interface "mind :3273" as BMIND
+ BMIND - [bob]
+ [bob] -(0- [simulator] : REST
+}
+
+interface "RDF :4000" as RDFPORT
+[ttlserver] - RDFPORT
+[bob] -(0- [ttlserver] : RDF
+
+[node red] -(0- [simulator] : "TD+REST"
+
+interface ":1880" as NRDPORT
+NRDPORT - [node red] : "flow def"
+
+interface ":1880/ui" as NRDBPORT
+[node red] - NRDBPORT : "dashboard"
+
+@enduml -->
+
 ## MAS using Web of Things 
 
 The directory `wot` has a JaCaMo application with agent Alice that reads and acts on the plant based on discovering the plant from TDs.
@@ -76,3 +119,30 @@ Changes I made on `httpd.conf` (see `my-httpd.conf`):
 - add `MultiViews` options (line 279) 
 
 In the ttl files (copied from https://gitlab.emse.fr/ai4industry/kg), I replaced `../../../simu` by `http://simulator:8080`.
+
+@startuml
+interface "TD :8080" as STD
+STD - [simulator]
+
+
+[gui] -(0- [simulator] : ":3003"
+
+[browser] -(0- [gui] : ":3001"
+
+interface ":2000" as BPORT
+[browser] - BPORT
+actor user
+BPORT )- user
+
+
+[node red] -( [STD]
+
+interface ":1880" as NRDPORT
+NRDPORT - [node red] : "flow def"
+
+interface ":1880/ui" as NRDBPORT
+NRDBPORT - [node red] : "dashboard"
+
+[alice] -( [STD]
+
+@enduml
