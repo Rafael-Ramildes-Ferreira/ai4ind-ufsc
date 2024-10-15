@@ -1,8 +1,8 @@
 .vscode
 node_red_data
-#browser-config
+browser-config
 .cache
-#.dbus
+.dbus
 .DS_Store
 .gradle
 bin
