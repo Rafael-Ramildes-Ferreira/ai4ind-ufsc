@@ -15,9 +15,9 @@ docker compose up
     - Simulation GUI should be open in this browser: [http://gui:3001](http://gui:3001)
 - RDF server: [http://localhost:4000](http://localhost:4000)
 
-## MAS using WoT
+## MAS using Web of Things 
 
-The directory `wot` run a JaCaMo application with agent Alice that reads and acts on the plant based on discovering the plant from TDs.
+The directory `wot` has a JaCaMo application with agent Alice that reads and acts on the plant based on discovering the plant from TDs.
 
 To run:
 
@@ -25,6 +25,18 @@ To run:
 cd wot
 docker compose up
 ```
+
+## MAS using Knowledge Graph
+
+The directory `kg` has a JaCaMo application with agent Bob that reads and acts on the plant based on discovering the plant from RDFs.
+
+To run:
+
+```
+cd kg
+docker compose up
+```
+
 
 ## How to build the images
 

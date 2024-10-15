@@ -13,7 +13,7 @@
     !invokeAction(
         automated_storage_and_retrieval_system,
         moveFromToAction,
-        [1,0]
+        [1,1]
     ) .
 
 +!crawl(URI)
