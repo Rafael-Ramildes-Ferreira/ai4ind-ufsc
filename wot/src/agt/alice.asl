@@ -1,13 +1,32 @@
-!test .
+!testSR.
+!testFW.
 
-+!test <-
++!testSR <-
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
     !getTD("http://simulator:8080/storageRack") ;
     !listProperties("tag:storageRack") ;
+    !writeProperty("tag:storageRack", conveyorSpeed, 0.3) ;
     !readProperty("tag:storageRack", conveyorSpeed) ;
-    !writeProperty("tag:storageRack", conveyorSpeed, 0.5) ;
-    !readProperty("tag:storageRack", conveyorSpeed) ;
-    !invokeAction("tag:storageRack", pickItem, [1,0]) .
+    !invokeAction("tag:storageRack", pickItem, [0,1]);
+    .
+
++!testFW
+   <- //.wait(1000);
+      !getTD("http://simulator:8080/fillingWorkshop") ;
+      !listProperties("tag:fillingWorkshop") ;
+      !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.3) ;
+      !swatch("tag:fillingWorkshop", opticalSensorStatus) ;
+   .
+
++!swatch(T, P) //: hasForm(T, P, F) & hasTargetURI(F, URI)
+    <- //!prepareForm(Fp) ;
+       //.print("URI=",URI," Fp=",Fp);
+       //watch(URI);
+       !readProperty(T,P);
+      // !swatch(T, P);
+    .
+
+//+json(Val)[source(URI)]  <- .print("new json ", Val, " for ",URI).
 
 +!getTD(TD)
     <-
@@ -16,12 +35,23 @@
     ?thing(T) ;
     .print("Found Thing with URI ", T) .
 
-+!listProperties(T) <- for (hasProperty(T, P)) { .print(P) } .
++!listProperties(T) 
+   <- for (hasProperty(T, P)) { 
+         if (hasForm(T, P, F) & hasTargetURI(F, URI)) {
+            !prepareForm(Fp);
+            get(URI, Fp) ;
+            ?(json(Val)[source(URI)]) ;
+            .print(P, " = ", Val) ;
+         } else {
+            .print(P)
+         } 
+      }
+   .
 
 +!readProperty(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
     <-
     !prepareForm(Fp) ;
-    .print("URI=",URI," Fp=",Fp);
+    //.print("URI=",URI," Fp=",Fp);
     get(URI, Fp) ;
     ?(json(Val)[source(URI)]) ;
     .print(P, " = ", Val) .
@@ -40,6 +70,7 @@
     <-
     h.basic_auth_credentials(User, Pw, H) ;
     F = [kv("urn:hypermedea:http:authorization", H)] .
+
 thing(T)
     :-
     json(TD) & .list(TD) &
