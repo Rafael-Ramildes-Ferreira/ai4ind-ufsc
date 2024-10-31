@@ -7,7 +7,7 @@ networks:
 
 services:
   simulator:
-    image: jomifred/ai4ind-simu:1.1
+    image: jomifred/ai4ind-simu:1.2
     ports:
       - "8080:8080"
       - "3003:3003"

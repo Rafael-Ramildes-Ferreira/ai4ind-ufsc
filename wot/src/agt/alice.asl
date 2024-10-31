@@ -7,11 +7,12 @@
     !listProperties("tag:storageRack") ;
     !writeProperty("tag:storageRack", conveyorSpeed, 0.3) ;
     !readProperty("tag:storageRack", conveyorSpeed) ;
-    !invokeAction("tag:storageRack", pickItem, [0,1]);
+    !invokeAction("tag:storageRack", pickItem, [1,2]);
     .
 
 +!testFW
    <- //.wait(1000);
+      //!getTD("https://ci.mines-stetienne.fr/simu/fillingWorkshop") ;
       !getTD("http://simulator:8080/fillingWorkshop") ;
       !listProperties("tag:fillingWorkshop") ;
       !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.3) ;
@@ -23,7 +24,8 @@
        //.print("URI=",URI," Fp=",Fp);
        //watch(URI);
        !readProperty(T,P);
-      // !swatch(T, P);
+       .wait(100);
+       !swatch(T, P);
     .
 
 //+json(Val)[source(URI)]  <- .print("new json ", Val, " for ",URI).
