@@ -9,3 +9,4 @@ bin
 build
 mas*.log
 *.lck
+**/*:Zone.Identifier
