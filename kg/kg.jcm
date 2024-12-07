@@ -10,4 +10,10 @@ mas itm_factory_mas {
         artifact h: org.hypermedea.HypermedeaArtifact()
     }
 
+    organisation org : factory.xml {
+        group grp : controllers {
+            players : bob   storageController
+        }
+    }
+
 }

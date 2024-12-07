@@ -9,6 +9,7 @@ services:
     command: kg.jcm
     ports:
       - 3273:3272
+      - 3274:3273
     networks:
       - ai4industry
     volumes:
