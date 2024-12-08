@@ -8,8 +8,8 @@ services:
     image: jomifred/jacamo:1.2
     command: kg.jcm
     ports:
-      - 3273:3272
-      - 3274:3273
+      - 3274:3272
+      - 3275:3273
     networks:
       - ai4industry
     volumes:

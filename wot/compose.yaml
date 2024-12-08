@@ -9,6 +9,7 @@ services:
     command: wot.jcm
     ports:
       - 3272:3272
+      - 3273:3273
     networks:
       - ai4industry
     volumes:
