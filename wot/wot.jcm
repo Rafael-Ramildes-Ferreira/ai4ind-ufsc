@@ -33,7 +33,10 @@ mas itm_factory_mas {
 
     organisation org : factory.xml {
         group grp : controllers {
-            players : alice   storageController
+            players :   storageM            storageController
+                        fillingWorkshop     fillingController
+                        robot               roboticController
+                        packagingWorkShop   packingController
         }
     }
 
