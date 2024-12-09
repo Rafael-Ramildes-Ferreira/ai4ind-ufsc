@@ -154,3 +154,4 @@ hasAction(T, A)
     .member(kv(A, _), As) .
 
 { include("$jacamoJar/templates/common-cartago.asl") }
+{ include("$jacamo/templates/common-moise.asl") }

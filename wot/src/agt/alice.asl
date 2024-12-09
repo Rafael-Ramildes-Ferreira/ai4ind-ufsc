@@ -1,17 +1,7 @@
 //!testSR.
 //!testFW.
 
-/* This causes errors ---- */
-//!create_scheme.
-//
-//+!create_scheme
-//    <-
-//    createScheme(test,sixBoxOrder,SchArtId);
-//    .my_name(Me); setOwner(Me)[artifact_id(SchArtId)];  // I am the owner of this scheme!
-//    focus(SchArtId);
-//    addScheme(s1); 
-//    .
-/* ---- ---- */
+
 
 +!testSR <-
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;

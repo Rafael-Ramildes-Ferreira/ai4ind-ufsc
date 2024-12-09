@@ -1,5 +1,7 @@
 !test .
 
+{ include("./createScheme.asl") }
+
 +!test <-
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
     !getTD("http://simulator:8080/storageRack");
@@ -213,3 +215,4 @@ hasAction(T, A)
     .member(kv(A, _), As) .
 
 { include("$jacamoJar/templates/common-cartago.asl") }
+{ include("$jacamo/templates/common-moise.asl") }
