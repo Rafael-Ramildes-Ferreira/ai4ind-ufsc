@@ -1,9 +1,31 @@
 mas itm_factory_mas {
-
+    /*
     agent alice {
         beliefs: credentials("simu1", "simu1")
         focus: itm_factory_workspace.h
     }
+*/
+
+    agent storageM {
+        beliefs: credentials("simu1", "simu1")
+        focus: itm_factory_workspace.h
+    }
+    
+    agent fillingWorkshop {
+        beliefs: credentials("simu1", "simu1")
+        focus: itm_factory_workspace.h
+    }
+
+    agent robot {
+        beliefs: credentials("simu1", "simu1")
+        focus: itm_factory_workspace.h
+    }
+
+    agent packagingWorkShop {
+        beliefs: credentials("simu1", "simu1")
+        focus: itm_factory_workspace.h
+    }
+    
 
     workspace itm_factory_workspace  {
         artifact h: org.hypermedea.HypermedeaArtifact()
