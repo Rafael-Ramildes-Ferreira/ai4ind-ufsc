@@ -24,22 +24,22 @@
 <functional-specification>
 	<scheme id="sixBoxOrder">
 	
-	<goal id="deliverSixBoxes" />	<!--	Much better would be to have a supervisor creating this scheme
-										one for order, so the number of six would be defined by him 
-	 <plan operator="parallel"> -->
-		<!-- <goal id="deliverBox" />
-		<argument id="Id" />
+	<goal id="deliverSixBoxes">	<!--	Much better would be to have a supervisor creating this scheme
+										one for order, so the number of six would be defined by him -->
+	 <plan operator="parallel">
+		<goal id="deliverBox">
+		<!-- <argument id="Id" /> -->
 		 <plan operator="parallel">
 			<goal id="dispatchCup">
-			 <plan operator="sequance">
+			 <plan operator="sequence">
 			 	<goal id="takeCup" />
 			 	<goal id="fillCup" />
 			 	<goal id="deliverCup" />
 			 	<goal id="cup2box" />
 			 </plan>
-			</goal> -->
+			</goal>
 			<!-- <goal id="dispatchCup">
-			 <plan operator="sequance">
+			 <plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -47,7 +47,7 @@
 			 </plan>
 			</goal>
 			<goal id="dispatchCup">
-			 <plan operator="sequance">
+			 <plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -55,7 +55,7 @@
 			 </plan>
 			</goal>
 			<goal id="dispatchCup">
-			 <plan operator="sequance">
+			 <plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -63,7 +63,7 @@
 			 </plan>
 			</goal>
 			<goal id="dispatchCup">
-			 <plan operator="sequance">
+			 <plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -71,20 +71,20 @@
 			 </plan>
 			</goal>
 			<goal id="dispatchCup">
-			 <plan operator="sequance">
+			 <plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
 				<goal id="cup2box" />
 			 </plan>
 			</goal> -->
-		 <!-- </plan>
-		</goal> -->
+		 </plan>
+		</goal>
 
 		<!-- <goal id="DeliverBox" />
 		 <plan operator="parallel">
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -92,7 +92,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -100,7 +100,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -108,7 +108,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -116,7 +116,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -124,60 +124,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-		 </plan>
-		</goal>
-
-		<goal id="DeliverBox" />
-		 <plan operator="parallel">
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -190,7 +137,7 @@
 		<goal id="DeliverBox" />
 		 <plan operator="parallel">
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -198,7 +145,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -206,7 +153,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -214,7 +161,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -222,7 +169,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -230,60 +177,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-		 </plan>
-		</goal>
-
-		<goal id="DeliverBox" />
-		 <plan operator="parallel">
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
-				<goal id="takeCup" />
-				<goal id="fillCup" />
-				<goal id="deliverCup" />
-				<goal id="cup2box" />
-			</plan>
-			</goal>
-			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -296,7 +190,7 @@
 		<goal id="DeliverBox" />
 		 <plan operator="parallel">
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -304,7 +198,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -312,7 +206,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -320,7 +214,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -328,7 +222,7 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -336,7 +230,113 @@
 			</plan>
 			</goal>
 			<goal id="dispatchCup">
-			<plan operator="sequance">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+		 </plan>
+		</goal>
+
+		<goal id="DeliverBox" />
+		 <plan operator="parallel">
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+		 </plan>
+		</goal>
+
+		<goal id="DeliverBox" />
+		 <plan operator="parallel">
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
+				<goal id="takeCup" />
+				<goal id="fillCup" />
+				<goal id="deliverCup" />
+				<goal id="cup2box" />
+			</plan>
+			</goal>
+			<goal id="dispatchCup">
+			<plan operator="sequence">
 				<goal id="takeCup" />
 				<goal id="fillCup" />
 				<goal id="deliverCup" />
@@ -346,8 +346,8 @@
 		 </plan>
 		</goal> -->
 
-	 <!-- </plan>
-	</goal> -->
+	 </plan>
+	</goal>
    	
 	<!-- <mission id="m1" min="1" max="1">
     	<goal id="takeCup" />
