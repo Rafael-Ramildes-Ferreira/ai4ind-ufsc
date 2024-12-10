@@ -1,5 +1,5 @@
 
-!create_scheme(test).
+!create_scheme(test_s1).
 
 +!create_scheme(SchId)
     <-
