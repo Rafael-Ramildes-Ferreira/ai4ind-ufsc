@@ -1,6 +1,8 @@
-!test .
+fillinStationBusy(true).
+missionPending(0).
 
-{ include("./createScheme.asl") }
+
+!test .
 
 +!test <-
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
@@ -32,14 +34,26 @@
 
 +!takeCup
     <-  
-    .print("#####################Realizando a primeira missão")
-    .
-    
-+!takeCup(Id)
-    <-  
-    .print("#####################Realizando a primeira missão ",Id)
+    ?fillinStationBusy(B);
+    if(B){
+        ?missionPending(N);
+        -+missionPending(N+1);
+    } else {
+        .print("##################### Realizando a primeira missão")
+    }
     .
 
++fillinStationBusy(false)[source(fillingWorkshop)]
+    :   missionPending(0)
+    <-  -fillinStationBusy(true).
+
++fillinStationBusy(false)[source(fillingWorkshop)]
+    :   missionPending(N) & N > 0
+    <-  
+    -fillinStationBusy(true)
+    -+missionPending(N-1);
+    !takeCup
+    .
 
 
 +!iterate_positions(I, J, F) : I < 6 & J < 6 <- 

@@ -18,6 +18,8 @@
     !readProperty("tag:packagingWorkshop", conveyorSpeed) ;
     !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.5) ;
 
+    .send(robot,tell,packagingBusy(false));
+
 
     .
 
@@ -45,12 +47,7 @@
 
 +!cup2box
     <-
-    .print("#####################Realizando a quarta missão")
-    .
-    
-+!takeCup(Id)
-    <-  
-    .print("#####################Realizando a quarta missão ",Id)
+    .print("##################### Realizando a quarta missão")
     .
 
 

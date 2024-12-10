@@ -1,3 +1,6 @@
+robotBusy(true).
+missionPending(0).
+
 !test .
 
 +!test <-
@@ -19,6 +22,8 @@
 
     //!listActions("tag:fillingWorkshop");
 
+    .send(storageM,tell,fillinStationBusy(false));
+
     !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
 
 
@@ -27,13 +32,23 @@
 
 +!fillCup
     <-
-    .print("#####################Realizando a segunda missão")
+    ?robotBusy(B);
+    while(B){};
+    .print("##################### Realizando a segunda missão")
+    .
+
++robotBusy(false)[source(robot)]
+    :   missionPending(0)
+    <-  -robotBusy(true).
+
++robotBusy(false)[source(robot)]
+    :   missionPending(N) & N > 0
+    <-  
+    -robotBusy(true)
+    +missionPending(N-1);
+    !fillCup
     .
     
-+!takeCup(Id)
-    <-  
-    .print("#####################Realizando a segunda missão ",Id)
-    .
 
 
 +!verifyMover(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)

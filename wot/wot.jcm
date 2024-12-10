@@ -25,6 +25,11 @@ mas itm_factory_mas {
         beliefs: credentials("simu1", "simu1")
         focus: itm_factory_workspace.h
     }
+
+    agent coordinator {
+        beliefs: credentials("simu1", "simu1")
+        focus: itm_factory_workspace.h
+    }
     
 
     workspace itm_factory_workspace  {
@@ -37,6 +42,7 @@ mas itm_factory_mas {
                         fillingWorkshop     fillingController
                         robot               roboticController
                         packagingWorkShop   packingController
+                        coordinator         contrlCoordinator
         }
     }
 

@@ -1,3 +1,5 @@
+packagingBusy(true).
+
 !test .
 
 +!test <-
@@ -13,19 +15,22 @@
     !listProperties("tag:robotArm");
     !listProperties("tag:packagingWorkshop");
     !listProperties("tag:dairyProductProvider");
+
+    .send(fillingWorkshop,tell,robotBusy(false));
     
     .
 
 
 +!deliverCup
     <-
-    .print("#####################Realizando a terceira missão")
+    ?packagingBusy(B);
+    while(B){};
+    .print("##################### Realizando a terceira missão")
     .
+
++packagingBusy(false)[source(packagingWorkshop)]
+    <- -packagingBusy(true)[source(self)].
     
-+!takeCup(Id)
-    <-  
-    .print("#####################Realizando a terceira missão ",Id)
-    .
 
 
 +!verifyMover(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
