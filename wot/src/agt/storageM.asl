@@ -1,6 +1,8 @@
 storageRackBusy(true).
 
-!test .
+//!test .
+
+!start.
 
 +!test <-
     -+storageRackBusy(false);
@@ -31,13 +33,30 @@ storageRackBusy(true).
 
     .
 
++!start
+    <-
+    -+storageRackBusy(false);
+    
+    !getTD("http://simulator:8080/storageRack");
+    !getTD("http://simulator:8080/dairyProductProvider");
+    
+    -+nextJ(0);
+    -+nextI(0);
+    -+f1(0);
+
+    //my_name(Me);
+    .broadcast(tell,ready)
+    .
+
 
 +!takeCup
     :   takeCupPermitted(true)[source(self)]
     <- 
     -+storageRackBusy(true);
     .print("##################### Realizando a primeira missão");
-    .wait(1000);
+    //.wait(1000);
+    !takeNextCup;
+    !writeProperty("tag:storageRack", conveyorSpeed, 0.5) ;
     .print("Primeira missão realizada #####################");
     -+storageRackBusy(false)
     .
@@ -83,6 +102,54 @@ storageRackBusy(true).
         !takeCup[scheme(Sch)];
         .send(coordinator,tell,achiveGoal(takeCup,AId))
     }
+    .
+
+
++!takeNextCup
+    :   nextI(I) & nextJ(J) & f1(F) & I < 4 & J < 4 
+    <- 
+    !invokeAction("tag:storageRack", pickItem, [I, J]);
+    
+    -+nextJ(J + 1);
+    -+nextI(I);
+    -+f1(F + 1)
+    .
+
++!takeNextCup
+    :   nextI(I) & nextJ(J) & f1(F) & I < 4 & J == 4
+    <- 
+    !invokeAction("tag:storageRack", pickItem, [I, J]);
+    
+    -+nextJ(0);
+    -+nextI(I + 1);
+    -+f1(F + 1)
+    .
+
++!takeNextCup
+    :   nextI(I) & nextJ(J) & f1(F) & I == 4 & J == 4
+    <- 
+    !invokeAction("tag:storageRack", pickItem, [I, J]);
+    
+    -+nextJ(0);
+    -+nextI(0);
+    -+f1(F + 1)
+    .
+    
++!takeNextCup
+    <-
+    .print("Catch all: ");
+    ?nextI(I);
+    .print("* I: ",I);
+    ?nextJ(J);
+    .print("* J: ",J);
+    ?f1(F);
+    .print("* F: ",F)
+    .
+
++f1(3)
+    <-
+    !invokeAction("tag:dairyProductProvider", order, 3);
+    -+f1(0)
     .
 
 

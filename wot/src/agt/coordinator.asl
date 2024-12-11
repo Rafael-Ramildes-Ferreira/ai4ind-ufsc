@@ -3,11 +3,15 @@ count(0).
 !start.
 
 +!start
+    :   ready[source(storageM)]
 	<-
-	for( .range(I, 1, 6) ){
+	for( .range(I, 1, 15) ){
 		!create_scheme(test_s)
 	}
 	.
+
+    
++!start <-  !start.
 
 +!create_scheme(SchId)
     <-
