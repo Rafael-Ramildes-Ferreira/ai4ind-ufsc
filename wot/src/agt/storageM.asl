@@ -1,5 +1,3 @@
-fillinStationBusy(true).
-missionPending(0).
 
 
 !test .
@@ -33,26 +31,29 @@ missionPending(0).
 
 
 +!takeCup
-    <-  
-    ?fillinStationBusy(B);
-    if(B){
-        ?missionPending(N);
-        -+missionPending(N+1);
-    } else {
-        .print("##################### Realizando a primeira missão")
-    }
+    :   fillinStationBusy(B) & B == false
+    <- 
+    .print("##################### Realizando a primeira missão");
     .
 
-+fillinStationBusy(false)[source(fillingWorkshop)]
-    :   missionPending(0)
-    <-  -fillinStationBusy(true).
++!takeCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
+    :   scheme(Sch,_,AId)
+    <- 
+    +goalPending(AId);
+    .fail
+    .
+
 
 +fillinStationBusy(false)[source(fillingWorkshop)]
-    :   missionPending(N) & N > 0
-    <-  
-    -fillinStationBusy(true)
-    -+missionPending(N-1);
-    !takeCup
+    :   goalPending(_)
+    <-
+    .findall(A,goalPending(A),L);
+
+    for( .member(AId,L) ){
+        -goalPending(AId);
+        !takeCup;
+        .send(coordinator,tell,achiveGoal(takeCup,AId))
+    }
     .
 
 

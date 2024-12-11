@@ -1,5 +1,4 @@
-robotBusy(true).
-missionPending(0).
+//goalPending(0).
 
 !test .
 
@@ -22,6 +21,7 @@ missionPending(0).
 
     //!listActions("tag:fillingWorkshop");
 
+    .print("Sending fillinStationBusy(false) to storageM");
     .send(storageM,tell,fillinStationBusy(false));
 
     !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
@@ -31,22 +31,32 @@ missionPending(0).
 
 
 +!fillCup
-    <-
-    ?robotBusy(B);
-    while(B){};
+    :   robotBusy(B) & B == false
+    <- 
     .print("##################### Realizando a segunda missão")
     .
 
-+robotBusy(false)[source(robot)]
-    :   missionPending(0)
-    <-  -robotBusy(true).
++!fillCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
+    :   scheme(Sch,_,AId)
+    <- 
+    ?robotBusy(B);
+    .print("------------------ robotBusy(",B,")");
+    +goalPending(AId);
+    //.fail
+    .
+
 
 +robotBusy(false)[source(robot)]
-    :   missionPending(N) & N > 0
-    <-  
-    -robotBusy(true)
-    +missionPending(N-1);
-    !fillCup
+    :   goalPending(_)
+    <-
+    .findall(A,goalPending(A),L);
+
+    for( .member(AId,L) ){
+        //?scheme(Sch,_,AId) // De alguma forma adicionar isso quebra a criação de esquemas
+        -goalPending(AId);
+        !fillCup;//[scheme(Sch)];
+        .send(coordinator,tell,achiveGoal(fillCup,AId))
+    }
     .
     
 

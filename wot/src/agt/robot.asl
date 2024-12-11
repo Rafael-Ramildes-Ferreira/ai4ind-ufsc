@@ -23,13 +23,13 @@ packagingBusy(true).
 
 +!deliverCup
     <-
-    ?packagingBusy(B);
-    while(B){};
+    //?packagingBusy(B);
+    //while(B){};
     .print("##################### Realizando a terceira missão")
     .
 
-+packagingBusy(false)[source(packagingWorkshop)]
-    <- -packagingBusy(true)[source(self)].
+//+packagingBusy(false)[source(packagingWorkshop)]
+//    <- -packagingBusy(true)[source(self)].
     
 
 
