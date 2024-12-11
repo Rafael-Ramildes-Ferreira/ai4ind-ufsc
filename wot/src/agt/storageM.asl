@@ -1,8 +1,10 @@
-
+storageRackBusy(true).
 
 !test .
 
 +!test <-
+    -+storageRackBusy(false);
+
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
     !getTD("http://simulator:8080/storageRack");
     !getTD("http://simulator:8080/fillingWorkshop");
@@ -23,7 +25,7 @@
 
 
 
-    !iterate_positions(0, 0, 0);
+    !iterate_positions(0, 0, 0)
    
 
 
@@ -31,12 +33,16 @@
 
 
 +!takeCup
-    :   fillinStationBusy(B) & B == false
+    :   takeCupPermitted(true)[source(self)]
     <- 
+    -+storageRackBusy(true);
     .print("##################### Realizando a primeira missão");
+    .wait(1000);
+    .print("Primeira missão realizada #####################");
+    -+storageRackBusy(false)
     .
 
-+!takeCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
++!takeCup[scheme(Sch)]
     :   scheme(Sch,_,AId)
     <- 
     +goalPending(AId);
@@ -45,13 +51,36 @@
 
 
 +fillinStationBusy(false)[source(fillingWorkshop)]
+    :   storageRackBusy(false)[source(self)]
+    <-
+    -+takeCupPermitted(true)
+    .
+
++storageRackBusy(false)[source(self)]
+    :   fillinStationBusy(false)[source(fillingWorkshop)]
+    <-
+    -+takeCupPermitted(true)
+    .
+
++fillinStationBusy(true)[source(fillingWorkshop)]
+    <-
+    -+takeCupPermitted(false)
+    .
+
++storageRackBusy(true)[source(self)]
+    <- 
+    -+takeCupPermitted(false)
+    .
+
++takeCupPermitted(true)[source(self)]
     :   goalPending(_)
     <-
     .findall(A,goalPending(A),L);
 
     for( .member(AId,L) ){
+        ?scheme(Sch,_,AId);
         -goalPending(AId);
-        !takeCup;
+        !takeCup[scheme(Sch)];
         .send(coordinator,tell,achiveGoal(takeCup,AId))
     }
     .
@@ -76,7 +105,7 @@
         !iterate_positions(NextI, NextJ, F1);  
     }else{
 
-        !iterate_positions(NextI, NextJ, F1);  
+        !iterate_positions(NextI, NextJ, F1)  
     }
 
     .
@@ -97,7 +126,7 @@
         !iterate_positions2(NextI, NextJ, F1);  
     }else{
 
-        !iterate_positions2(NextI, NextJ, F1);  
+        !iterate_positions2(NextI, NextJ, F1)
     }
 
     .
@@ -126,7 +155,7 @@
     !invokeAction("tag:robotArm", moveTo, DEVOLVER) ;
 
     .wait(500);
-    !invokeAction("tag:robotArm", release, true);
+    !invokeAction("tag:robotArm", release, true)
 }
 .
 

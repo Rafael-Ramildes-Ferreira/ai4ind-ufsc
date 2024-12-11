@@ -1,6 +1,10 @@
+packagingBusy(true).
+
 !test .
 
 +!test <-
+    -+packagingBusy(false);
+
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
     !getTD("http://simulator:8080/storageRack");
     !getTD("http://simulator:8080/fillingWorkshop");
@@ -16,11 +20,66 @@
 
 
     !readProperty("tag:packagingWorkshop", conveyorSpeed) ;
-    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.5) ;
+    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.5)
 
+
+    .
+
+
++!cup2box
+    :   cup2boxPermitted(true)[source(self)]
+    <-
+    -+packagingBusy(true);
+    .print("##################### Realizando a quarta missão");
+    .wait(1000);
+    .print("Quarta missão realizada #####################");
+    -+packagingBusy(false)
+    .
+
++!cup2box[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
+    :   scheme(Sch,_,AId)
+    <- 
+    +goalPending(AId);
+    .fail
+    .
+
+
++packagingBusy(false)[source(self)]
+    <-
     .send(robot,tell,packagingBusy(false));
+    -+cup2boxPermitted(true)
+    .
+
++packagingBusy(true)[source(self)]
+    <- 
+    .send(robot,tell,packagingBusy(true));
+    -+cup2boxPermitted(false)
+    .
 
 
++cup2boxPermitted(true)[source(self)]
+    :   goalPending(_)
+    <-
+    !delayedGoalWorking
+    .
+
+
++goalPending(_)
+    :   cup2boxPermitted(true)[source(self)]
+    <-
+    !delayedGoalWorking
+    .
+
++!delayedGoalWorking
+    <-
+    .findall(A,goalPending(A),L);
+
+    for( .member(AId,L) ){
+        ?scheme(Sch,_,AId);
+        -goalPending(AId);
+        !cup2box[scheme(Sch)];
+        .send(coordinator,tell,achiveGoal(cup2box,AId))
+    }
     .
 
 
@@ -33,22 +92,16 @@
 
     if (Val == "false" | Val == false) {
 
-    !invokeAction("tag:robotArm", grasp, true);
+        !invokeAction("tag:robotArm", grasp, true);
 
-    DEVOLVER = [kv("x", 3.2), kv("y", 0), kv("z", 1)];
-  
-    !invokeAction("tag:robotArm", moveTo, DEVOLVER) ;
+        DEVOLVER = [kv("x", 3.2), kv("y", 0), kv("z", 1)];
+    
+        !invokeAction("tag:robotArm", moveTo, DEVOLVER) ;
 
-    .wait(500);
-    !invokeAction("tag:robotArm", release, true);
-}
+        .wait(500);
+        !invokeAction("tag:robotArm", release, true)
+    }
 .
-
-
-+!cup2box
-    <-
-    .print("##################### Realizando a quarta missão")
-    .
 
 
 +!verifyCopo(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
@@ -67,7 +120,7 @@
 
 
     } else {
-        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
+        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus)
     }
     .
 
@@ -84,7 +137,7 @@
     } else {
         .print("FALSOOO");
         .print("Waiting for opticalSensorStatus to be true...");
-        !verifyProperty("tag:fillingWorkshop", opticalSensorStatus) ; 
+        !verifyProperty("tag:fillingWorkshop", opticalSensorStatus) 
     }
     .
 

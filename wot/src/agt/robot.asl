@@ -1,35 +1,99 @@
-packagingBusy(true).
+robotBusy(true).
 
-!test .
+!test.
 
 +!test <-
+    -+robotBusy(false);
+
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
     !getTD("http://simulator:8080/storageRack");
     !getTD("http://simulator:8080/fillingWorkshop");
     !getTD("http://simulator:8080/robotArm");
-    !getTD("http://simulator:8080/packagingWorkshop");
+    !getTD("http://simulator:8080/packagingWorkShop");
     !getTD("http://simulator:8080/dairyProductProvider");
 
     !listProperties("tag:storageRack");
     !listProperties("tag:fillingWorkshop");
     !listProperties("tag:robotArm");
-    !listProperties("tag:packagingWorkshop");
-    !listProperties("tag:dairyProductProvider");
+    !listProperties("tag:packagingWorkShop");
+    !listProperties("tag:dairyProductProvider")
 
-    .send(fillingWorkshop,tell,robotBusy(false));
     
     .
 
 
 +!deliverCup
-    <-
-    //?packagingBusy(B);
-    //while(B){};
-    .print("##################### Realizando a terceira missão")
+    :   deliverCupPermitted(true)[source(self)]
+    <- 
+    -+robotBusy(true);
+    .print("##################### Realizando a terceira missão");
+    .wait(1000);
+    .print("Terceira missão realizada #####################");
+    -+robotBusy(false)
     .
 
-//+packagingBusy(false)[source(packagingWorkshop)]
-//    <- -packagingBusy(true)[source(self)].
++!deliverCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
+    :   scheme(Sch,_,AId)
+    <- 
+    +goalPending(AId);
+    .fail
+    .
+
+
++packagingBusy(false)[source(packagingWorkShop)]
+    :   robotBusy(false)[source(self)]
+    <-
+    -+deliverCupPermitted(true)
+    .
+
++robotBusy(false)[source(self)]
+    :   packagingBusy(false)[source(packagingWorkShop)]
+    <-
+    .send(fillingWorkshop,tell,robotBusy(false));
+    -+deliverCupPermitted(true)
+    .
+
++robotBusy(false)[source(self)]
+    <-
+    .send(fillingWorkshop,tell,robotBusy(false))
+    .
+
++packagingBusy(true)[source(packagingWorkShop)]
+    <-
+    -+deliverCupPermitted(false)
+    .
+
++robotBusy(true)[source(self)]
+    <- 
+    .send(fillingWorkshop,tell,robotBusy(true));
+    -+deliverCupPermitted(false)
+    .
+
+
++deliverCupPermitted(true)[source(self)]
+    :   goalPending(_)
+    <-
+    !delayedGoalWorking
+    .
+
+
++goalPending(_)
+    :   deliverCupPermitted(true)[source(self)]
+    <-
+    !delayedGoalWorking
+    .
+
++!delayedGoalWorking
+    <-
+    .findall(A,goalPending(A),L);
+
+    for( .member(AId,L) ){
+        ?scheme(Sch,_,AId);
+        -goalPending(AId);
+        !deliverCup[scheme(Sch)];
+        .send(coordinator,tell,achiveGoal(deliverCup,AId))
+    }
+    .
     
 
 
@@ -49,7 +113,7 @@ packagingBusy(true).
     !invokeAction("tag:robotArm", moveTo, DEVOLVER) ;
 
     .wait(500);
-    !invokeAction("tag:robotArm", release, true);
+    !invokeAction("tag:robotArm", release, true)
 }
 .
 
@@ -71,7 +135,7 @@ packagingBusy(true).
 
 
     } else {
-        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
+        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus)
     }
     .
 
@@ -88,7 +152,7 @@ packagingBusy(true).
     } else {
         .print("FALSOOO");
         .print("Waiting for opticalSensorStatus to be true...");
-        !verifyProperty("tag:fillingWorkshop", opticalSensorStatus) ; 
+        !verifyProperty("tag:fillingWorkshop", opticalSensorStatus) 
     }
     .
 

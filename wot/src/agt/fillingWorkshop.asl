@@ -1,8 +1,10 @@
-//goalPending(0).
+fillinStationBusy(true).
 
 !test .
 
 +!test <-
+    -+fillinStationBusy(false);
+
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
     !getTD("http://simulator:8080/fillingWorkshop");
 
@@ -21,40 +23,79 @@
 
     //!listActions("tag:fillingWorkshop");
 
-    .print("Sending fillinStationBusy(false) to storageM");
-    .send(storageM,tell,fillinStationBusy(false));
-
-    !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
+    !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus)
 
 
     .
 
 
-+!fillCup
-    :   robotBusy(B) & B == false
++!fillCup   // Parece haver algum caso em que ele nunca cumpre o objetivo
+    :   fillCupPermitted(true)[source(self)]
     <- 
-    .print("##################### Realizando a segunda missão")
+    -+fillinStationBusy(true);
+    .print("##################### Realizando a segunda missão");
+    .wait(1000);
+    .print("Segunda missão realizada #####################");
+    -+fillinStationBusy(false)
     .
 
 +!fillCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
     :   scheme(Sch,_,AId)
     <- 
-    ?robotBusy(B);
-    .print("------------------ robotBusy(",B,")");
     +goalPending(AId);
-    //.fail
+    .fail
     .
 
 
 +robotBusy(false)[source(robot)]
+    :   fillinStationBusy(false)[source(self)]
+    <-
+    -+fillCupPermitted(true)
+    .
+
++fillinStationBusy(false)[source(self)]
+    :   robotBusy(false)[source(robot)]
+    <-
+    .send(storageM,tell,fillinStationBusy(false));
+    -+fillCupPermitted(true)
+    .
+
++fillinStationBusy(false)[source(self)]
+    <-
+    .send(storageM,tell,fillinStationBusy(false))
+    .
+
++robotBusy(true)[source(robot)]
+    <-
+    -+fillCupPermitted(false)
+    .
+
++fillinStationBusy(true)[source(self)]
+    <- 
+    .send(storageM,tell,fillinStationBusy(true));
+    -+fillCupPermitted(false)
+    .
+
+
++fillCupPermitted(true)[source(self)]
     :   goalPending(_)
+    <-
+    !delayedGoalWorking.
+
+
++goalPending(_)
+    :   fillCupPermitted(true)[source(self)]
+    <-
+    !delayedGoalWorking.
+
++!delayedGoalWorking
     <-
     .findall(A,goalPending(A),L);
 
     for( .member(AId,L) ){
-        //?scheme(Sch,_,AId) // De alguma forma adicionar isso quebra a criação de esquemas
+        ?scheme(Sch,_,AId);
         -goalPending(AId);
-        !fillCup;//[scheme(Sch)];
+        !fillCup[scheme(Sch)];
         .send(coordinator,tell,achiveGoal(fillCup,AId))
     }
     .
@@ -85,7 +126,7 @@
     }
    
     else{
-        !verifyMover("tag:robotArm", inMovement);
+        !verifyMover("tag:robotArm", inMovement)
     }
     
 .
@@ -109,7 +150,7 @@
     }
    
     else{
-        !verifyMover2("tag:robotArm", inMovement);
+        !verifyMover2("tag:robotArm", inMovement)
     }
     
 .
@@ -136,7 +177,7 @@
 
 
     } else {
-        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
+        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus)
     }
     .
 
@@ -153,7 +194,7 @@
     } else {
         .print("FALSOOO");
         .print("Waiting for opticalSensorStatus to be true...");
-        !verifyProperty("tag:fillingWorkshop", opticalSensorStatus) ; 
+        !verifyProperty("tag:fillingWorkshop", opticalSensorStatus) 
     }
     .
 

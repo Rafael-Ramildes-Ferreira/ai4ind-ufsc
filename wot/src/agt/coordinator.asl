@@ -19,7 +19,7 @@ count(0).
     setArgumentValue(auction,"Id",SchIdNew)[artifact_id(SchArtId)];
     .my_name(Me); setOwner(Me)[artifact_id(SchArtId)];  // I am the owner of this scheme!
     focus(SchArtId);
-    addScheme(SchIdNew);
+    addScheme(SchIdNew)
     //!create_scheme(SchId)
     .
 
