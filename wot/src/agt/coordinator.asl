@@ -3,10 +3,11 @@ count(0).
 !start.
 
 +!start
-    :   ready[source(storageM)]
+    :   ready[source(storageM),source(fillingWorkshop)]
 	<-
 	for( .range(I, 1, 15) ){
-		!create_scheme(test_s)
+		!create_scheme(test_s);
+        .wait({achiveGoal(fillCup,_)})
 	}
 	.
 

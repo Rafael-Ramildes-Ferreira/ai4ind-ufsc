@@ -54,7 +54,6 @@ storageRackBusy(true).
     <- 
     -+storageRackBusy(true);
     .print("##################### Realizando a primeira missão");
-    //.wait(1000);
     !takeNextCup;
     !writeProperty("tag:storageRack", conveyorSpeed, 0.5) ;
     .print("Primeira missão realizada #####################");
@@ -83,6 +82,7 @@ storageRackBusy(true).
 
 +fillinStationBusy(true)[source(fillingWorkshop)]
     <-
+    !writeProperty("tag:storageRack", conveyorSpeed, 0.0) ;
     -+takeCupPermitted(false)
     .
 
