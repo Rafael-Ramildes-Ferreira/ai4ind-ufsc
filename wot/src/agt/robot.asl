@@ -5,39 +5,26 @@ robotBusy(true).
 +!test <-
     -+robotBusy(false);
 
-    //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
-    !getTD("http://simulator:8080/storageRack");
-    !getTD("http://simulator:8080/fillingWorkshop");
+
     !getTD("http://simulator:8080/robotArm");
-    !getTD("http://simulator:8080/packagingWorkShop");
-    !getTD("http://simulator:8080/dairyProductProvider");
 
-    !listProperties("tag:storageRack");
-    !listProperties("tag:fillingWorkshop");
-    !listProperties("tag:robotArm");
-    !listProperties("tag:packagingWorkShop");
-    !listProperties("tag:dairyProductProvider")
+    //!listProperties("tag:robotArm");
 
-    
+    .broadcast(tell,ready);
     .
 
 
-+!deliverCup
-    :   deliverCupPermitted(true)[source(self)]
++!deliverCup[scheme(Sch)]   
+    :   scheme(Sch,_,AId)
     <- 
     -+robotBusy(true);
     .print("##################### Realizando a terceira missão");
-    .wait(1000);
+    .wait(10000);
     .print("Terceira missão realizada #####################");
-    -+robotBusy(false)
+    -+robotBusy(false);
     .
 
-+!deliverCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
-    :   scheme(Sch,_,AId)
-    <- 
-    +goalPending(AId);
-    .fail
-    .
+
 
 
 +packagingBusy(false)[source(packagingWorkShop)]
@@ -129,7 +116,7 @@ robotBusy(true).
 
     VALOR = [kv("x", 2.2), kv("y", 0), kv("z", 1)];
 
-    !invokeAction("tag:robotArm", moveTo, VALOR) ;
+    !invokeAction("tag:robotArm", moveTo, VALOR);
 
     !verifyMover("tag:robotArm", inMovement);
 
