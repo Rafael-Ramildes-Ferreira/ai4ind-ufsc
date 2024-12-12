@@ -1,14 +1,13 @@
 robotBusy(true).
 
-!test.
+!start.
 
-+!test <-
++!start <-
     -+robotBusy(false);
 
 
     !getTD("http://simulator:8080/robotArm");
 
-    //!listProperties("tag:robotArm");
 
     .broadcast(tell,ready);
     .
@@ -22,64 +21,6 @@ robotBusy(true).
     !verifyMover("tag:robotArm", inMovement);
     .print("Terceira missão realizada #####################");
     -+robotBusy(false);
-    .
-
-
-
-
-+packagingBusy(false)[source(packagingWorkShop)]
-    :   robotBusy(false)[source(self)]
-    <-
-    -+deliverCupPermitted(true)
-    .
-
-+robotBusy(false)[source(self)]
-    :   packagingBusy(false)[source(packagingWorkShop)]
-    <-
-    .send(fillingWorkshop,tell,robotBusy(false));
-    -+deliverCupPermitted(true)
-    .
-
-+robotBusy(false)[source(self)]
-    <-
-    .send(fillingWorkshop,tell,robotBusy(false))
-    .
-
-+packagingBusy(true)[source(packagingWorkShop)]
-    <-
-    -+deliverCupPermitted(false)
-    .
-
-+robotBusy(true)[source(self)]
-    <- 
-    .send(fillingWorkshop,tell,robotBusy(true));
-    -+deliverCupPermitted(false)
-    .
-
-
-+deliverCupPermitted(true)[source(self)]
-    :   goalPending(_)
-    <-
-    !delayedGoalWorking
-    .
-
-
-+goalPending(_)
-    :   deliverCupPermitted(true)[source(self)]
-    <-
-    !delayedGoalWorking
-    .
-
-+!delayedGoalWorking
-    <-
-    .findall(A,goalPending(A),L);
-
-    for( .member(AId,L) ){
-        ?scheme(Sch,_,AId);
-        -goalPending(AId);
-        !deliverCup[scheme(Sch)];
-        .send(coordinator,tell,achiveGoal(deliverCup,AId))
-    }
     .
     
 
@@ -109,12 +50,8 @@ robotBusy(true).
     !invokeAction("tag:robotArm", moveTo, DEVOLVER) ;
 
     
-    !verifyMover2("tag:robotArm", inMovement);
-  
-    
-    
-    
-.
+    !verifyMover2("tag:robotArm", inMovement)
+    .
 
 
 +!verifyMover2(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
@@ -128,57 +65,13 @@ robotBusy(true).
     
     while(Val == "true" | Val == true) {
 
-    !verifyMover2("tag:robotArm", inMovement);
+        !verifyMover2("tag:robotArm", inMovement);
      
     }
    
-//    if(Val == "false" | Val == false){
-    !invokeAction("tag:robotArm", release, true);
-
-	// ISSO É O FINAL DA EXECUÇÃO PRA RETOMAR A LÓGICA
-    //!verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
-//    }
-    
-.
-
-
-
-+!verifyCopo(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
-    <-
-    !prepareForm(Fp) ;
-    .print("URI=",URI," Fp=",Fp);
-    get(URI, Fp) ;
-    ?(json(Val)[source(URI)]) ;
-    if (Val == "true" | Val == true) {
-
-    VALOR = [kv("x", 2.2), kv("y", 0), kv("z", 1)];
-
-    !invokeAction("tag:robotArm", moveTo, VALOR);
-
-    !verifyMover("tag:robotArm", inMovement);
-
-
-    } else {
-        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus)
-    }
+    !invokeAction("tag:robotArm", release, true)
     .
 
-+!verifyProperty(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
-    <- 
-    !prepareForm(Fp) ;
-    .print("URI=", URI, " Fp=", Fp);
-    get(URI, Fp) ;
-    ?(json(Val)[source(URI)]) ;
-    
-    if (Val == "true" | Val == true) {
-        !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.0) ;
-        .print("VERDADEIROOOOOOOOOOOOOOOOOO");
-    } else {
-        .print("FALSOOO");
-        .print("Waiting for opticalSensorStatus to be true...");
-        !verifyProperty("tag:fillingWorkshop", opticalSensorStatus) 
-    }
-    .
 
 { include("./tdHelper.asl") }
 
