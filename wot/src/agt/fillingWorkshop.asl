@@ -208,11 +208,11 @@ fillinStationBusy(true).
 
     !invokeAction("tag:robotArm", moveTo, VALOR) ;
 
-    !verifyMover("tag:robotArm", inMovement);
+    //!verifyMover("tag:robotArm", inMovement);
 
 
     } else {
-        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus)
+        !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
     }
     .
 

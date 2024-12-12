@@ -27,7 +27,8 @@ robotBusy(true).
     <- 
     -+robotBusy(true);
     .print("##################### Realizando a terceira missão");
-    .wait(1000);
+    //.wait(1000);
+    !verifyMover("tag:robotArm", inMovement);
     .print("Terceira missão realizada #####################");
     -+robotBusy(false)
     .
@@ -99,22 +100,59 @@ robotBusy(true).
 
 +!verifyMover(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
     <-
+    VALOR = [kv("x", 2.2), kv("y", 0), kv("z", 1)];
+
+    !invokeAction("tag:robotArm", moveTo, VALOR) ;
+
     !prepareForm(Fp) ;
     .print("URI=",URI," Fp=",Fp);
     get(URI, Fp) ;
     ?(json(Val)[source(URI)]) ;
 
-    if (Val == "false" | Val == false) {
+    .wait(20);
+    while (Val == "true" | Val == true) {
 
-    !invokeAction("tag:robotArm", grasp, true);
+        !verifyMover("tag:robotArm", inMovement);
+     
+    }
+   
+     !invokeAction("tag:robotArm", grasp, true);
 
     DEVOLVER = [kv("x", 3.2), kv("y", 0), kv("z", 1)];
   
     !invokeAction("tag:robotArm", moveTo, DEVOLVER) ;
 
-    .wait(500);
-    !invokeAction("tag:robotArm", release, true)
-}
+    
+    !verifyMover2("tag:robotArm", inMovement);
+  
+    
+    
+    
+.
+
+
++!verifyMover2(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
+    <-
+    !prepareForm(Fp) ;
+    .print("URI=",URI," Fp=",Fp);
+    get(URI, Fp) ;
+    ?(json(Val)[source(URI)]) ;
+
+    .wait(20);
+    
+    while(Val == "true" | Val == true) {
+
+    !verifyMover2("tag:robotArm", inMovement);
+     
+    }
+   
+//    if(Val == "false" | Val == false){
+    !invokeAction("tag:robotArm", release, true);
+
+	// ISSO É O FINAL DA EXECUÇÃO PRA RETOMAR A LÓGICA
+    //!verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
+//    }
+    
 .
 
 
