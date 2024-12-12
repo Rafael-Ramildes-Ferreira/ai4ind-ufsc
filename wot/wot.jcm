@@ -1,10 +1,4 @@
 mas itm_factory_mas {
-    /*
-    agent alice {
-        beliefs: credentials("simu1", "simu1")
-        focus: itm_factory_workspace.h
-    }
-*/
 
     agent storageM {
         beliefs: credentials("simu1", "simu1")
