@@ -6,12 +6,10 @@
     
     !getTD("http://simulator:8080/fillingWorkshop");
     
-    //!readProperty("tag:fillingWorkshop", conveyorSpeed);
     !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.5); // Sempre deve ter uma velocidade para fazer o copo passar pelo sensor inicial
     
     .broadcast(tell,ready);
 
-    //!verOpticalSensor;
     .
 
 
@@ -22,13 +20,11 @@
     !waitPositionXFalse; // Wait until the 
     .send(storageM,tell,cupDetected);
 
-    //.drop_desire(verOpticalSensor); // Stop verifying if the cup has arrived at the optical sensor
     !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.5);
     .send(storageM,untell,cupDetected);
 
     !waitHeadStatusTrue;
     !!releaseRack;
-    //!writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.1);
     .
 
 +!releaseRack
@@ -157,10 +153,6 @@
 .
 
 
-
-
-
-
 +!verifyCopo(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
     <-
     !prepareForm(Fp) ;
@@ -174,28 +166,9 @@
 
     !invokeAction("tag:robotArm", moveTo, VALOR) ;
 
-    //!verifyMover("tag:robotArm", inMovement);
-
 
     } else {
         !verifyCopo("tag:fillingWorkshop", conveyorHeadStatus);
-    }
-    .
-
-+!verifyProperty(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
-    <- 
-    !prepareForm(Fp) ;
-    .print("URI=", URI, " Fp=", Fp);
-    get(URI, Fp) ;
-    ?(json(Val)[source(URI)]) ;
-    
-    if (Val == "true" | Val == true) {
-        !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.0) ;
-        .print("VERDADEIROOOOOOOOOOOOOOOOOO");
-    } else {
-        .print("FALSOOO");
-        .print("Waiting for opticalSensorStatus to be true...");
-        !verifyProperty("tag:fillingWorkshop", opticalSensorStatus) 
     }
     .
 
