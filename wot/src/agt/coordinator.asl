@@ -1,14 +1,19 @@
 count(0).
+f1(0).
 
 !start.
 
 +!start
     :   ready[source(storageM),source(fillingWorkshop),source(robot),source(packagingWorkShop)] 
 	<-
+    !getTD("http://simulator:8080/dairyProductProvider");
+
 	for( .range(I, 1, 15) ){
         .wait(5);
 		!create_scheme(test_s);
         .wait({+done(fillCup)});
+        ?f1(F);
+        -+f1(F + 1)
 	}
 	.
 
@@ -36,6 +41,14 @@ count(0).
 	admCommand(Command)[artifact_id(AId)];
 	//admCommand("goalSatisfied(takeCup)")[artifact_id(AId)]
 	.
+
++f1(3)
+    <-
+    !invokeAction("tag:dairyProductProvider", order, 3);
+    -+f1(0)
+    .
+
+{ include("./tdHelper.asl") }
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamo/templates/common-moise.asl") }
