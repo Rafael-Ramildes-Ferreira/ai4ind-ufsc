@@ -1,5 +1,7 @@
-!testSR.
-!testFW.
+//!testSR.
+//!testFW.
+
+
 
 +!testSR <-
     //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
@@ -103,3 +105,4 @@ hasForm(T, PAE, F)
 hasTargetURI(F, URI) :- .member(kv(href, URI), F) .
 
 { include("$jacamoJar/templates/common-cartago.asl") }
+{ include("$jacamo/templates/common-moise.asl") }

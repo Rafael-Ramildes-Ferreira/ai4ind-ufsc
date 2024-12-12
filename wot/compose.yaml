@@ -4,11 +4,13 @@ networks:
     external: true
 
 services:
-  alice:
+  mas:
     image: jomifred/jacamo:1.2
     command: wot.jcm
     ports:
+      - 3271:3271
       - 3272:3272
+      - 3273:3273
     networks:
       - ai4industry
     volumes:

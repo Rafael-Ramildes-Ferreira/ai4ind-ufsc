@@ -1,5 +1,14 @@
 
 !test .
+!create_scheme.
+
++!create_scheme
+    <-
+    createScheme(test,sixBoxOrder,SchArtId);
+    .my_name(Me); setOwner(Me)[artifact_id(SchArtId)];  // I am the owner of this scheme!
+    focus(SchArtId);
+    addScheme(s1); 
+    .
 
 +!test
     <-
@@ -156,3 +165,4 @@ hasTarget(Individual1, Individual2)
     ) .
 
 { include("$jacamoJar/templates/common-cartago.asl") }
+{ include("$jacamo/templates/common-moise.asl") }
