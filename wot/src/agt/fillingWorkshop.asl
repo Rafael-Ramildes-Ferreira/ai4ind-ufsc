@@ -45,8 +45,14 @@ fillinStationBusy(true).
 +!fillCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
     :   scheme(Sch,_,AId)
     <- 
-    !monitorHeadStatus;
-    !monitorPositionX;
+    !waitHeadStatusTrue;
+    !!releaseRack
+    .
+
++!releaseRack
+    <-
+    !waitPositionXTrue;
+    !waitHeadStatusFalse;
     .send(coordinator,tell,done(fillCup));
     .send(coordinator,untell,done(fillCup));
     .
@@ -82,7 +88,7 @@ fillinStationBusy(true).
     .
     
 
-+!monitorHeadStatus
++!waitHeadStatusTrue
     <-
     !readProperty("tag:fillingWorkshop", conveyorHeadStatus);
     ?hasForm("tag:fillingWorkshop", conveyorHeadStatus, F);
@@ -90,11 +96,23 @@ fillinStationBusy(true).
     ?(json(Val)[source(URI)]);
     if( Val \== true & Val \== "true" ){
         .wait(10);
-        !monitorHeadStatus;
+        !waitHeadStatusTrue;
     }
     .
 
-+!monitorPositionX
++!waitHeadStatusFalse
+    <-
+    !readProperty("tag:fillingWorkshop", conveyorHeadStatus);
+    ?hasForm("tag:fillingWorkshop", conveyorHeadStatus, F);
+    ?hasTargetURI(F, URI);
+    ?(json(Val)[source(URI)]);
+    if( Val == true | Val == "true" ){
+        .wait(10);
+        !waitHeadStatusFalse;
+    }
+    .
+
++!waitPositionXTrue
     <-
     !readProperty("tag:fillingWorkshop", positionX);
     ?hasForm("tag:fillingWorkshop", positionX, F);
@@ -102,7 +120,19 @@ fillinStationBusy(true).
     ?(json(Val)[source(URI)]);
     if( Val \== 0 ){
         .wait(10);
-        !monitorPositionX;
+        !waitPositionXTrue;
+    }
+    .
+
++!waitPositionXFalse
+    <-
+    !readProperty("tag:fillingWorkshop", positionX);
+    ?hasForm("tag:fillingWorkshop", positionX, F);
+    ?hasTargetURI(F, URI);
+    ?(json(Val)[source(URI)]);
+    if( Val == 0 ){
+        .wait(10);
+        !waitPositionXFalse;
     }
     .
 
