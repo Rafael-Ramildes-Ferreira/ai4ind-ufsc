@@ -3,10 +3,12 @@ count(0).
 !start.
 
 +!start
-    :   ready[source(storageM)]
+    :   ready[source(storageM),source(fillingWorkshop)]
 	<-
 	for( .range(I, 1, 15) ){
-		!create_scheme(test_s)
+        .concat(test_s,I,Sch);
+		!create_scheme(Sch);
+        .wait({+done(fillCup)})
 	}
 	.
 

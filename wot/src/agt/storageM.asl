@@ -94,6 +94,17 @@ storageRackBusy(true).
 +takeCupPermitted(true)[source(self)]
     :   goalPending(_)
     <-
+    !delayedGoalWorking
+    .
+
++goalPending(_)
+    :   takeCupPermitted(true)[source(self)]
+    <-
+    !delayedGoalWorking
+    .
+
++!delayedGoalWorking
+    <-
     .findall(A,goalPending(A),L);
 
     for( .member(AId,L) ){

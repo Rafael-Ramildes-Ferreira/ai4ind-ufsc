@@ -1,6 +1,8 @@
 fillinStationBusy(true).
 
-!test .
+//!test .
+
+!start.
 
 +!test <-
     -+fillinStationBusy(false);
@@ -28,13 +30,25 @@ fillinStationBusy(true).
 
     .
 
++!start 
+    <-
+    -+fillinStationBusy(false);
+    !getTD("http://simulator:8080/fillingWorkshop");
+    
+    !readProperty("tag:fillingWorkshop", conveyorSpeed);
+    !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.5);
+    
+    .broadcast(tell,ready)
+    .
 
-+!fillCup   // Parece haver algum caso em que ele nunca cumpre o objetivo
-    :   fillCupPermitted(true)[source(self)]
+
++!fillCup
+    :   fillEnd
     <- 
     -+fillinStationBusy(true);
     .print("##################### Realizando a segunda missão");
-    .wait(1000);
+    //.wait(1000);
+    -fillEnd;
     .print("Segunda missão realizada #####################");
     -+fillinStationBusy(false)
     .
@@ -77,29 +91,43 @@ fillinStationBusy(true).
     .
 
 
-+fillCupPermitted(true)[source(self)]
-    :   goalPending(_)
++goalPending(AId)
     <-
-    !delayedGoalWorking.
-
-
-+goalPending(_)
-    :   fillCupPermitted(true)[source(self)]
-    <-
-    !delayedGoalWorking.
-
-+!delayedGoalWorking
-    <-
-    .findall(A,goalPending(A),L);
-
-    for( .member(AId,L) ){
-        ?scheme(Sch,_,AId);
-        -goalPending(AId);
-        !fillCup[scheme(Sch)];
-        .send(coordinator,tell,achiveGoal(fillCup,AId))
-    }
+    !monitorHeadStatus;
+    !monitorPositionX;
+    .send(coordinator,tell,done(fillCup));
+    .send(coordinator,tell,achiveGoal(fillCup,AId));
+    .send(coordinator,untell,done(fillCup));
+    -fillEnd    // This would be better it recerived from the robot
     .
     
+
++!monitorHeadStatus
+    <-
+    !readProperty("tag:fillingWorkshop", conveyorHeadStatus);
+    ?hasForm("tag:fillingWorkshop", conveyorHeadStatus, F);
+    ?hasTargetURI(F, URI);
+    ?(json(Val)[source(URI)]);
+    if( Val == true | Val == "true" ){
+        .print("Aqui!!!");
+        +fillEnd;
+    } else {
+        .wait(10);
+        !monitorHeadStatus;
+    }
+    .
+
++!monitorPositionX
+    <-
+    !readProperty("tag:fillingWorkshop", positionX);
+    ?hasForm("tag:fillingWorkshop", positionX, F);
+    ?hasTargetURI(F, URI);
+    ?(json(Val)[source(URI)]);
+    if( Val \== 0 ){
+        .wait(10);
+        !monitorPositionX;
+    }
+    .
 
 
 +!verifyMover(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
