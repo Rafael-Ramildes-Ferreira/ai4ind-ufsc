@@ -10,7 +10,7 @@ f1(0).
 
 	for( .range(I, 1, 15) ){
         .wait(5);
-		!create_scheme(test_s);
+		!create_scheme(order_);
         .wait({+done(fillCup)});
         ?f1(F);
         -+f1(F + 1)
@@ -26,7 +26,7 @@ f1(0).
     -+count(N+1);
     ?count(M);
     .concat(SchId,M,SchIdNew);
-    createScheme(SchIdNew,sixBoxOrder,SchArtId);
+    createScheme(SchIdNew,cupOrder,SchArtId);
     setArgumentValue(auction,"Id",SchIdNew)[artifact_id(SchArtId)];
     .my_name(Me); setOwner(Me)[artifact_id(SchArtId)];  // I am the owner of this scheme!
     focus(SchArtId);
