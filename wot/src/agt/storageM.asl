@@ -8,7 +8,6 @@
     
     -+nextJ(0);
     -+nextI(0);
-    -+f1(0);
 
     .broadcast(tell,ready);
     .
@@ -34,33 +33,30 @@
 
 
 +!takeNextCup
-    :   nextI(I) & nextJ(J) & f1(F) & I < 4 & J < 4 
+    :   nextI(I) & nextJ(J) & I < 4 & J < 4 
     <- 
     !invokeAction("tag:storageRack", pickItem, [I, J]);
     
     -+nextJ(J + 1);
-    -+nextI(I);
-    -+f1(F + 1)
+    -+nextI(I)
     .
 
 +!takeNextCup
-    :   nextI(I) & nextJ(J) & f1(F) & I < 4 & J == 4
+    :   nextI(I) & nextJ(J) & I < 4 & J == 4
     <- 
     !invokeAction("tag:storageRack", pickItem, [I, J]);
     
     -+nextJ(0);
-    -+nextI(I + 1);
-    -+f1(F + 1)
+    -+nextI(I + 1)
     .
 
 +!takeNextCup
-    :   nextI(I) & nextJ(J) & f1(F) & I == 4 & J == 4
+    :   nextI(I) & nextJ(J) & I == 4 & J == 4
     <- 
     !invokeAction("tag:storageRack", pickItem, [I, J]);
     
     -+nextJ(0);
-    -+nextI(0);
-    -+f1(F + 1)
+    -+nextI(0)
     .
     
 +!takeNextCup
@@ -70,8 +66,6 @@
     .print("* I: ",I);
     ?nextJ(J);
     .print("* J: ",J);
-    ?f1(F);
-    .print("* F: ",F)
     .
 
 
