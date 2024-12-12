@@ -1,41 +1,8 @@
-storageRackBusy(true).
-
-//!test .
 
 !start.
 
-+!test <-
-    -+storageRackBusy(false);
-
-    //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
-    !getTD("http://simulator:8080/storageRack");
-    !getTD("http://simulator:8080/fillingWorkshop");
-    !getTD("http://simulator:8080/robotArm");
-    !getTD("http://simulator:8080/packagingWorkshop");
-    !getTD("http://simulator:8080/dairyProductProvider");
-
-
-
-    !listProperties("tag:dairyProductProvider");
-    !listProperties("tag:storageRack");
-
-    !readProperty("tag:storageRack", conveyorSpeed) ;
-    !writeProperty("tag:storageRack", conveyorSpeed, 0.5) ;
-    
-    
-    
-
-
-
-    !iterate_positions(0, 0, 0)
-   
-
-
-    .
-
 +!start
     <-
-    -+storageRackBusy(false);
     
     !getTD("http://simulator:8080/storageRack");
     !getTD("http://simulator:8080/dairyProductProvider");
@@ -44,75 +11,22 @@ storageRackBusy(true).
     -+nextI(0);
     -+f1(0);
 
-    //my_name(Me);
-    .broadcast(tell,ready)
+    .broadcast(tell,ready);
     .
 
-
-+!takeCup
-    :   takeCupPermitted(true)[source(self)]
-    <- 
-    -+storageRackBusy(true);
-    .print("##################### Realizando a primeira missão");
-    //.wait(1000);
-    !takeNextCup;
-    !writeProperty("tag:storageRack", conveyorSpeed, 0.5) ;
-    .print("Primeira missão realizada #####################");
-    -+storageRackBusy(false)
-    .
 
 +!takeCup[scheme(Sch)]
     :   scheme(Sch,_,AId)
     <- 
-    +goalPending(AId);
-    .fail
-    .
 
 
-+fillinStationBusy(false)[source(fillingWorkshop)]
-    :   storageRackBusy(false)[source(self)]
-    <-
-    -+takeCupPermitted(true)
-    .
+    !writeProperty("tag:storageRack", conveyorSpeed, 0.5);
+    !takeNextCup;
 
-+storageRackBusy(false)[source(self)]
-    :   fillinStationBusy(false)[source(fillingWorkshop)]
-    <-
-    -+takeCupPermitted(true)
-    .
-
-+fillinStationBusy(true)[source(fillingWorkshop)]
-    <-
-    -+takeCupPermitted(false)
-    .
-
-+storageRackBusy(true)[source(self)]
-    <- 
-    -+takeCupPermitted(false)
-    .
-
-+takeCupPermitted(true)[source(self)]
-    :   goalPending(_)
-    <-
-    !delayedGoalWorking
-    .
-
-+goalPending(_)
-    :   takeCupPermitted(true)[source(self)]
-    <-
-    !delayedGoalWorking
-    .
-
-+!delayedGoalWorking
-    <-
-    .findall(A,goalPending(A),L);
-
-    for( .member(AId,L) ){
-        ?scheme(Sch,_,AId);
-        -goalPending(AId);
-        !takeCup[scheme(Sch)];
-        .send(coordinator,tell,achiveGoal(takeCup,AId))
-    }
+    .wait({+cupDetected});
+    
+    !writeProperty("tag:storageRack", conveyorSpeed, 0.0);
+    
     .
 
 

@@ -1,48 +1,112 @@
 packagingBusy(true).
+totalcups(0).
+totalpacks(0).
 
 !test .
 
 +!test <-
     -+packagingBusy(false);
 
-    //!getTD("https://ci.mines-stetienne.fr/simu/storageRack") ;
-    !getTD("http://simulator:8080/storageRack");
-    !getTD("http://simulator:8080/fillingWorkshop");
-    !getTD("http://simulator:8080/robotArm");
+
     !getTD("http://simulator:8080/packagingWorkshop");
-    !getTD("http://simulator:8080/dairyProductProvider");
 
-    !listProperties("tag:storageRack");
-    !listProperties("tag:fillingWorkshop");
-    !listProperties("tag:robotArm");
-    !listProperties("tag:packagingWorkshop");
-    !listProperties("tag:dairyProductProvider");
+    //!listProperties("tag:packagingWorkshop");
 
-
-    !readProperty("tag:packagingWorkshop", conveyorSpeed) ;
-    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.5)
-
-
+    .broadcast(tell,ready);
     .
 
 
-+!cup2box
-    :   cup2boxPermitted(true)[source(self)]
++!cup2box[scheme(Sch)]   // Case no cups on container
+    :   scheme(Sch,_,AId) &
+        totalcups(X) &
+        X \== 9 &
+        X mod 3 = 0    // For X = 0, 3, 6   
     <-
-    -+packagingBusy(true);
+    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.5);
     .print("##################### Realizando a quarta missão");
-    .wait(1000);
+    !waitFirstCup;
+    -+totalcups(X+1);
     .print("Quarta missão realizada #####################");
-    -+packagingBusy(false)
+    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.0);
     .
 
-+!cup2box[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
-    :   scheme(Sch,_,AId)
-    <- 
-    +goalPending(AId);
-    .fail
++!cup2box[scheme(Sch)]   // Case we have 1 cup
+    :   scheme(Sch,_,AId) &
+        totalcups(X) & 
+        (X+2) mod 3 = 0    // For X = 1, 4, 7  
+    <-
+    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.5);
+    .print("##################### Realizando a quarta missão");
+    !waitSecondCup;
+    -+totalcups(X+1);
+    .print("Quarta missão realizada #####################");
+    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.0);
     .
 
++!cup2box[scheme(Sch)]   // Case we have 2 cups
+    :   scheme(Sch,_,AId) &
+        totalcups(X) & 
+        (X+1) mod 3 = 0    // For X = 2, 5, 8   
+    <-
+    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.5);
+
+    //!waitThirdCup;    // No such sensor
+    .wait(5000);
+    
+    // Wait until the packet is in position?
+    .print("Quarta missão realizada #####################");
+    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.0);
+    .
+
+
++totalcups(9)   // When we reach 9 cups the packet is complete and we need to (wait to) dispacth it
+    <-
+    !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.5);
+    !waitDispatch;
+    // !writeProperty("tag:packagingWorkshop", conveyorSpeed, 0.0); // Could cause trouble if not correctly timed
+    -+totalcups(0);
+    ?totalpacks(X);
+    -+totalpacks(X+1);
+    .send(coordinator,untell,totalpacks(X));
+    .send(coordinator,tell,totalpacks(X+1));
+    .
+
+
++!waitFirstCup
+    <-
+    !readProperty("tag:packagingWorkshop", opticalSensorContainer1);
+    ?hasForm("tag:packagingWorkshop", opticalSensorContainer1, F);
+    ?hasTargetURI(F, URI);
+    ?(json(Val)[source(URI)]);
+    if( Val \== true & Val \== "true" ){
+        .wait(100);
+        !waitFirstCup;
+    }
+    .
+
++!waitSecondCup
+    <-
+    !readProperty("tag:packagingWorkshop", opticalSensorContainer2);
+    ?hasForm("tag:packagingWorkshop", opticalSensorContainer2, F);
+    ?hasTargetURI(F, URI);
+    ?(json(Val)[source(URI)]);
+    if( Val \== true & Val \== "true" ){
+        .wait(100);
+        !waitSecondCup;
+    }
+    .
+
++!waitDispatch
+    <-
+    !readProperty("tag:packagingWorkshop", conveyorHeadStatus); // Correct TD?
+    ?hasForm("tag:packagingWorkshop", conveyorHeadStatus, F);
+    ?hasTargetURI(F, URI);
+    ?(json(Val)[source(URI)]);
+    if( Val \== true & Val \== "true" ){
+        .wait(100);
+        !waitDispatch;
+    }
+    .
 
 +packagingBusy(false)[source(self)]
     <-
