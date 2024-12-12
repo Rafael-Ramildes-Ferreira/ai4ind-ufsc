@@ -13,7 +13,7 @@
 +!readProperty(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
     <-
     !prepareForm(Fp) ;
-    .print("URI=",URI," Fp=",Fp);
+    //.print("URI=",URI," Fp=",Fp);
     get(URI, Fp) ;
     ?(json(Val)[source(URI)]) ;
     .print(P, " = ", Val) 
