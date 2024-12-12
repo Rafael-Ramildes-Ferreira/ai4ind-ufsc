@@ -5,7 +5,6 @@
     <-
     
     !getTD("http://simulator:8080/storageRack");
-    !getTD("http://simulator:8080/dairyProductProvider");
     
     -+nextJ(0);
     -+nextI(0);
@@ -73,12 +72,6 @@
     .print("* J: ",J);
     ?f1(F);
     .print("* F: ",F)
-    .
-
-+f1(3)
-    <-
-    !invokeAction("tag:dairyProductProvider", order, 3);
-    -+f1(0)
     .
 
 
