@@ -6,6 +6,7 @@ f1(0).
 +!start
     :   ready[source(storageM),source(fillingWorkshop),source(robot),source(packagingWorkShop)] 
 	<-
+    !getTD("http://simulator:8080/factory");
     !getTD("http://simulator:8080/dairyProductProvider");
 
 	for( .range(I, 1, 15) ){
@@ -44,6 +45,18 @@ f1(0).
     <-
     !invokeAction("tag:dairyProductProvider", order, 3);
     -+f1(0)
+    .
+
++!hardReset
+    : resetCondition
+    <-
+
+    // FALTA !!!! Deletar as missoes atuais de cada agente
+    // .broadcast(achieve, hardReset); // Os agentes deveriam ter um plano que usa .drop_all_intentions
+    !invokeAction("tag:robotArm", reset);
+    
+    .broadcast(achieve, start);
+    !start; // Comeca tudo de novo
     .
 
 { include("./tdHelper.asl") }
