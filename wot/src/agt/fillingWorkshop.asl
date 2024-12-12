@@ -1,8 +1,6 @@
 fillinStationBusy(true).
 
-//!test .
-
-!start.
+!test .
 
 +!test <-
     -+fillinStationBusy(false);
@@ -30,28 +28,14 @@ fillinStationBusy(true).
 
     .
 
-+!start
-    <-
-    -+fillinStationBusy(false);
-
-    !getTD("http://simulator:8080/fillingWorkshop");
-    
-    !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.5) ;
-
-    !!monitor;
-    
-    .broadcast(tell,ready)
-    .
-
 
 +!fillCup   // Parece haver algum caso em que ele nunca cumpre o objetivo
     :   fillCupPermitted(true)[source(self)]
-    <-
+    <- 
     -+fillinStationBusy(true);
     .print("##################### Realizando a segunda missão");
-    //!writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.5) ;
+    .wait(1000);
     .print("Segunda missão realizada #####################");
-    //!writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.0) ;
     -+fillinStationBusy(false)
     .
 
@@ -92,11 +76,6 @@ fillinStationBusy(true).
     -+fillCupPermitted(false)
     .
 
-+cupArrived[source(self)]
-    <- 
-    .send(storageM,tell,fillinStationBusy(true));
-    .
-
 
 +fillCupPermitted(true)[source(self)]
     :   goalPending(_)
@@ -121,25 +100,6 @@ fillinStationBusy(true).
     }
     .
     
-
-+!monitor
-    <-
-    //.print(".");
-    !readProperty("tag:fillingWorkshop", optical, S1);
-    if(S1){
-        +cupArrived;
-    } else {
-        -cupArrived;
-    }
-    !readProperty("tag:fillingWorkshop", conveyorHeadStatus, S2);
-    if(S2){
-        +fillingEnd;
-    } else {
-        -fillingEnd;
-    }
-
-    !monitor
-    .
 
 
 +!verifyMover(T, P) : hasForm(T, P, F) & hasTargetURI(F, URI)
