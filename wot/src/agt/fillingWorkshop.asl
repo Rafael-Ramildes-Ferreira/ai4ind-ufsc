@@ -33,7 +33,7 @@
     !waitPositionXTrue;
     !waitHeadStatusFalse;
     .send(coordinator,tell,done(fillCup));
-    .wait(50)
+    .wait(50);
     .send(coordinator,untell,done(fillCup));
     .
 
