@@ -19,10 +19,14 @@
     :   scheme(Sch,_,AId)
     <- 
 
-
-    !writeProperty("tag:storageRack", conveyorSpeed, 0.5);
     !takeNextCup;
+    !writeProperty("tag:storageRack", conveyorSpeed, 0.5);
 
+    !!stopConveyor
+    .
+
++!stopConveyor
+    <-
     .wait({+cupDetected});
     
     !writeProperty("tag:storageRack", conveyorSpeed, 0.0);

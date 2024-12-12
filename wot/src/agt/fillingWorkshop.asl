@@ -12,17 +12,20 @@
     .broadcast(tell,ready);
 
     //!verOpticalSensor;
-    !waitPositionXFalse; // Wait until the 
-    .send(storageM,tell,cupDetected);
     .
 
 
 +!fillCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
     :   scheme(Sch,_,AId)
     <- 
+    !waitPositionXTrue;
+    !waitPositionXFalse; // Wait until the 
+    .send(storageM,tell,cupDetected);
+
     //.drop_desire(verOpticalSensor); // Stop verifying if the cup has arrived at the optical sensor
     !writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.5);
     .send(storageM,untell,cupDetected);
+
     !waitHeadStatusTrue;
     !!releaseRack;
     //!writeProperty("tag:fillingWorkshop", conveyorSpeed, 0.1);
