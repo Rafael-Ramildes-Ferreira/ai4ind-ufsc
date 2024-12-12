@@ -42,22 +42,13 @@ fillinStationBusy(true).
     .
 
 
-+!fillCup
-    :   fillEnd
-    <- 
-    -+fillinStationBusy(true);
-    .print("##################### Realizando a segunda missão");
-    //.wait(1000);
-    -fillEnd;
-    .print("Segunda missão realizada #####################");
-    -+fillinStationBusy(false)
-    .
-
 +!fillCup[scheme(Sch)]   // Catch both when there is no busy believe and when it's true
     :   scheme(Sch,_,AId)
     <- 
-    +goalPending(AId);
-    .fail
+    !monitorHeadStatus;
+    !monitorPositionX;
+    .send(coordinator,tell,done(fillCup));
+    .send(coordinator,untell,done(fillCup));
     .
 
 
@@ -89,17 +80,6 @@ fillinStationBusy(true).
     .send(storageM,tell,fillinStationBusy(true));
     -+fillCupPermitted(false)
     .
-
-
-+goalPending(AId)
-    <-
-    !monitorHeadStatus;
-    !monitorPositionX;
-    .send(coordinator,tell,done(fillCup));
-    .send(coordinator,tell,achiveGoal(fillCup,AId));
-    .send(coordinator,untell,done(fillCup));
-    -fillEnd    // This would be better it recerived from the robot
-    .
     
 
 +!monitorHeadStatus
@@ -108,10 +88,7 @@ fillinStationBusy(true).
     ?hasForm("tag:fillingWorkshop", conveyorHeadStatus, F);
     ?hasTargetURI(F, URI);
     ?(json(Val)[source(URI)]);
-    if( Val == true | Val == "true" ){
-        .print("Aqui!!!");
-        +fillEnd;
-    } else {
+    if( Val \== true & Val \== "true" ){
         .wait(10);
         !monitorHeadStatus;
     }

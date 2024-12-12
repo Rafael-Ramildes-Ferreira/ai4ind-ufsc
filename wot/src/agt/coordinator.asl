@@ -6,8 +6,8 @@ count(0).
     :   ready[source(storageM),source(fillingWorkshop)]
 	<-
 	for( .range(I, 1, 15) ){
-        .concat(test_s,I,Sch);
-		!create_scheme(Sch);
+        .wait(5);
+		!create_scheme(test_s);
         .wait({+done(fillCup)})
 	}
 	.
