@@ -31,7 +31,6 @@ f1(0).
     .my_name(Me); setOwner(Me)[artifact_id(SchArtId)];  // I am the owner of this scheme!
     focus(SchArtId);
     addScheme(SchIdNew);
-    //!create_scheme(SchId)
     .
 
 +achiveGoal(Goal,AId)[source(Agent)]
@@ -39,7 +38,6 @@ f1(0).
 	.concat("goalSatisfied(",Goal,AuxStr);
 	.concat(AuxStr,")",Command);
 	admCommand(Command)[artifact_id(AId)];
-	//admCommand("goalSatisfied(takeCup)")[artifact_id(AId)]
 	.
 
 +f1(3)
